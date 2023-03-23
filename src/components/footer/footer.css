@@ -4,8 +4,9 @@ footer{
     align-items: center;
     height: 10vh;
     bottom:0;
-    position: relative;
+    position: fixed;
     background-color: var(--primary-bg-color);
     color: var(--white);
     width: 100%;
+    z-index: 1;
 }

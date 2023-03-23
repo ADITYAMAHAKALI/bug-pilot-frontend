@@ -1,0 +1,33 @@
+#edit{
+    width: 100%;
+    border: 2px solid var(--white);
+    border-radius: 5px;
+    background-color: var(--white);
+    color: #097609;
+    font-size: 1rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 10vw;
+}
+#edit:hover{
+    cursor: pointer;
+    background-color: #097609;
+    color: var(--white);
+}
+#delete{
+    width: 100%;
+    border: 2px solid var(--white);
+    border-radius: 5px;
+    background-color: var(--white);
+    color: red;
+    font-size: 1rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 10vw;
+}
+#delete:hover{
+    cursor: pointer;
+    background-color: red;
+    color: var(--white);
+}
+
