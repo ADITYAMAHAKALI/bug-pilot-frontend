@@ -17,7 +17,7 @@ const AddBug = ({setAdd}) => {
         bugTitle: bugTitle,
         bugAuthor: bugAuthor,
         bugLabel: bugLabel,
-        bugStatus: bugStatus,
+        bugStatus: bugStatus.toLowerCase().trim()==="open" ? true : false,
       }),
     });
     const data = await response.json();

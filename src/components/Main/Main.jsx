@@ -11,8 +11,13 @@ const Main = () => {
 
     async function fetchBugs(){
         const response =  (await fetch('http://localhost:9090/api/bug/'))
-        const data = await response.json()
-        setBugs(data)
+        //console.log('response.status', response.status)
+        if(response.status === 200){
+            const data =   await response.json()
+            setBugs(data)
+        }else{
+            alert('No bugs found')
+        }
     }
 
     async function fetchBug(bugId){
@@ -25,7 +30,7 @@ const Main = () => {
 
       useEffect(()=>{
         fetchBugs()
-        //console.log(bugs)
+        console.log(bugs)
       },[]);
 
     const showAdd = () => {
@@ -64,7 +69,7 @@ const Main = () => {
             <input type="text" placeholder='🔎 Search By bugId, bugTitle' />
             <button onClick={()=>{showAdd()}}>Add Bug</button>
         </div>
-        {edit===true && <EditBug  bug={bug}/>}
+        {edit===true && <EditBug  bug={bug} setEdit={setEdit}/>}
         {add===true && <AddBug setAdd={setAdd}/>}
         {add!==true && edit!==true && <Bugs bugs={bugs} handleEdit={handleEdit} handleDelete={handleDelete}/>}
     </main>

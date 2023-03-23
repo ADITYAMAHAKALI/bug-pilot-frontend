@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import "./editbug.css";
 
-const EditBug = ({bug}) => {
+const EditBug = ({bug,setEdit}) => {
   const [bugTitle, setBugTitle] = useState('');
   const [bugAuthor, setBugAuthor] = useState('');
   const [bugLabel, setBugLabel] = useState('');
@@ -13,11 +13,10 @@ const EditBug = ({bug}) => {
     setBugTitle(bug.bugTitle)
     setBugAuthor(bug.bugAuthor)
     setBugLabel(bug.bugLabel)
-    setBugStatus(bug.open)
   },[bug])
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    const response = await fetch(`http://localhost:9090/api/bug/`, {
+    const response = await fetch(`http://localhost:9090/api/bug/${bug.bugId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -26,11 +25,12 @@ const EditBug = ({bug}) => {
         bugTitle: bugTitle,
         bugAuthor: bugAuthor,
         bugLabel: bugLabel,
-        bugStatus: bugStatus,
+        bugStatus: bugStatus.toLowerCase().trim()==="open" ? true : false,
       }),
     });
     const data = await response;
     console.log(data);
+    setEdit(false)
   }
   return (
     <>
@@ -57,7 +57,7 @@ const EditBug = ({bug}) => {
         />
         <input
           type="text"
-          placeholder="Bug status"
+          placeholder="Bug status open or closed"
           value={bugStatus===true ? "open" : "closed"}
           onChange={(e) => setBugStatus(e.target.value)}
         />
