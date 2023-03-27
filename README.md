@@ -14,8 +14,22 @@
 
 
 ### Todos
+- [X] create a form to add a bug
+- [X] display all bugs
+- [X] display a single bug
+- [X] add delete a bug
+- [X] add delete a bug
+___________________________________
+
+- [ ] login
+- [ ] register
+- [ ] add project
+- [ ] add bugs
 - [ ] create a form to add a bug
 - [ ] display all bugs
 - [ ] display a single bug
 - [ ] add delete a bug
 - [ ] add delete a bug
+
+____________________________________
+
