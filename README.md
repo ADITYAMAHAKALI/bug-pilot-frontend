@@ -10,6 +10,18 @@ This is a simple yet powerful bug tracking app built with ReactJS. It provides f
 - Delete bug reports that are no longer relevant
 - Search for specific bug reports using keywords or phrases
 
+## ToDo's
+
+- [x] Basic file and folder structure
+- [x] Create required pages and routing
+- [ ] Authentication (Login, Logout, SignUp)
+- [x] CRUD Operations for Project
+- [ ] CRUD Operations for Bugs related to any Project
+- [ ] Landing Page UI
+- [ ] About Page
+- [ ] Contact Page
+- [ ] Responsiveness
+
 ## Getting Started
 
 To get started with the app, simply clone the repository to your local machine and install the dependencies using npm or yarn:

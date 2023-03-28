@@ -29,8 +29,6 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
-  const login = () => {};
-
   return (
     <AppContext.Provider
       value={{
@@ -38,6 +36,7 @@ const AppProvider = ({ children }) => {
         openSidebar,
         closeSidebar,
         isModalOpen,
+        setIsModalOpen,
         openModal,
         closeModal,
         user,
