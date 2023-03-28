@@ -1,8 +1,24 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home, About, Contact, Register, Login, Dashboard } from './pages';
+import { Navbar, Footer, Sidebar } from './components';
+
 function App() {
   return (
-    <div>
-      <h1>BugPilot</h1>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Sidebar />
+      <main className="page">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </main>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
