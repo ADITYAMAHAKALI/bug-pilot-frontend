@@ -1,100 +1,157 @@
-import "./contactus.css";
+import styled from 'styled-components';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
 const Contact = () => {
   return (
-    <div className="container">
-      {/* <h1 classNameNameName="headline">Contact Us</h1>
-      <div classNameNameName="main-content">
-        <div classNameNameName="details">
-          <div classNameNameName="description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            magni, ipsum enim iure laboriosam harum fuga asperiores. Quae fugiat
-          </div>
-          <div classNameNameName="contact-links">
-              <div classNameNameName="address">
-                  <p classNameNameName="addresspara"> <span>Address: </span> Sector 33, Gurgaon</p>
-              </div>
-              <div classNameNameName="linkedin">
-                <p classNameNameName="linkedinpara"> <span>LinkedIn: </span> blogpilot</p>
-              </div>
-              <div classNameNameName="email">
-                <p classNameNameName="emailpara"><span>Email: </span> blogpilot.bussiness@gmail.com</p>
-              </div>
-          </div>
+    <Wrapper>
+      <header className="section">
+        <div className="title">
+          <h1>Contact Us</h1>
+          <div className="title-underline"></div>
         </div>
+      </header>
 
-        <div classNameNameName="contact-form">
-          <form action="submit">
-            <p>Send Me A Message</p>
-            <div classNameNameName="firstrow">
-              <div classNameNameName="name">
-                <label htmlFor="name-input">Name</label> <br />
-                <input type="text" classNameNameName="name-input" />
+      <div className="section">
+        <div className="section section-center contact-center">
+          <article className="contact-info">
+            <div className="address details">
+              <FaMapMarkerAlt />
+              <h4>Address</h4>
+              <p>Sector 33, Gurgaon</p>
+              <p>Haryana</p>
+            </div>
+            <div className="phone details">
+              <FaPhoneAlt />
+              <h4>Phone</h4>
+              <p>+91-9234567890</p>
+              <p>+91-9987654321</p>
+            </div>
+            <div className="email details">
+              <FaEnvelope />
+              <h4>Email</h4>
+              <p>bugpilot.bussiness@gmail.com</p>
+              <p>info.bugpilot@gmail.com</p>
+            </div>
+          </article>
+
+          <article className="contact-form">
+            <h3>Send us a message</h3>
+            <p>
+              If you have any work from us or any types of queries related to
+              our work, you can send us message from here. It'll be our pleasure
+              to help you.
+            </p>
+            <form className="">
+              <div className="form-row">
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="Enter Your Name"
+                />
               </div>
-              <div classNameNameName="email">
-                <label htmlFor="email-input">Email</label>  <br />
-                <input type="text" classNameNameName="email-input" />
+              <div className="form-row">
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="Enter Your Email"
+                />
               </div>
-            </div>
+              <div className="form-row">
+                <textarea
+                  type="text"
+                  className="form-textarea"
+                  placeholder="Write Your Message Here!"
+                />
+              </div>
 
-            <div classNameNameName="secondrow">
-              <label htmlFor="subject-input">Subject</label>  <br />
-              <input classNameNameName="subjet-input" type="text" />
-            </div>
-
-            <div classNameNameName="thirdrow">
-              <label htmlFor="message-input">Message</label> <br />
-              <input type="text" classNameNameName="message-input" />
-            </div>
-
-          </form>
-        </div>
-      </div> */}
-
-      <div className="content">
-        <div className="left-side">
-          <div className="address details">
-            <i className="fas fa-map-marker-alt"></i>
-            <div className="topic">Address</div>
-            <div className="text-one">Sector 33, Gurgaon</div>
-            <div className="text-two">Noida</div>
-          </div>
-          <div className="phone details">
-            <i className="fas fa-phone-alt"></i>
-            <div className="topic">Phone</div>
-            <div className="text-one">+91-9234567890</div>
-            <div className="text-two">+91-9987654321</div>
-          </div>
-          <div className="email details">
-            <i className="fas fa-envelope"></i>
-            <div className="topic">Email</div>
-            <div className="text-one">bugpilot.bussiness@gmail.com</div>
-            <div className="text-two">info.bugpilot@gmail.com</div>
-          </div>
-        </div>
-        <div className="right-side">
-          <div className="topic-text">Send us a message</div>
-          <p>
-            If you have any work from us or any types of quries related to our
-            work, you can send us message from here. It's our pleasure to
-            help you.
-          </p>
-          <form action="#">
-            <div className="input-box">
-              <input type="text" placeholder="Enter Your Name" />
-            </div>
-            <div className="input-box">
-              <input type="text" placeholder="Enter Your Email" />
-            </div>
-            <div className="input-box message-box">
-              <input type="text" placeholder="Write Your Message Here!" />
-            </div>
-      
-            <button>Send Now</button>
-          </form>
+              <button type="submit" className="btn btn-block">
+                Send Now
+              </button>
+            </form>
+          </article>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 };
+
+export const Wrapper = styled.section`
+  header {
+    background: var(--primary-1);
+    text-align: center;
+
+    .title {
+      margin-bottom: 0;
+    }
+  }
+
+  .contact-center {
+    background: var(--white);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4rem;
+
+    @media (min-width: 992px) {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    justify-self: center;
+
+    @media (min-width: 992px) {
+      align-items: flex-start;
+      text-align: left;
+      flex-direction: column;
+      position: relative;
+      padding-right: 4rem;
+
+      ::before {
+        content: '';
+        position: absolute;
+        height: 70%;
+        width: 1px;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #ccc;
+      }
+    }
+
+    svg {
+      font-size: 1.5rem;
+      color: var(--primary-5);
+      margin-bottom: 0.5rem;
+    }
+
+    h4 {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    p {
+      font-size: 0.875rem;
+      color: #afafb6;
+      margin-bottom: 0;
+    }
+  }
+
+  .contact-form {
+    h3 {
+      color: var(--primary-5);
+      font-size: 1.5rem;
+    }
+  }
+`;
+
 export default Contact;

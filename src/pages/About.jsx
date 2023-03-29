@@ -1,34 +1,41 @@
-import bugfixing from "../assets/bugfixing.jpg";
-import styled from "styled-components";
+import aboutImg from '../assets/aboutImg.png';
+import styled from 'styled-components';
 
 const About = () => {
   return (
-    <main>
-      {/* <PageHero title="about" /> */}
-      <Wrapper className="page section section-center">
-        <img src={bugfixing} alt="about-image" />
-        <article>
-          <div className="title">
-            <h2>about us</h2>
-            <div className="underline"></div>
-          </div>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus sint iure aspernatur non distinctio quasi ratione alias
-            excepturi. Recusandae totam qui iure a perferendis natus voluptates
-            hic unde minima illo voluptas porro, exercitationem aspernatur
-            veniam nemo excepturi animi aliquid quia, eos sequi? Recusandae
-            cupiditate architecto ipsum reiciendis. Sint, minus, esse officia
-            quam consectetur qui quos obcaecati commodi aliquam harum, et
-            assumenda adipisci sequi? Tenetur, labore? Ea delectus iste vel
-            error ipsum reiciendis explicabo rerum, deserunt non officiis
-            ducimus quae quisquam illum debitis earum esse. Inventore,
-            perspiciatis ducimus eius assumenda, numquam quisquam cumque
-            voluptatibus doloremque, eos a recusandae rem dolore commodi.
-          </p>
-        </article>
-      </Wrapper>
-    </main>
+    <Wrapper className="section section-center">
+      <article className="about-img">
+        <img src={aboutImg} alt="about-image" />
+      </article>
+      <article>
+        <div className="title">
+          <h2>about us</h2>
+          <div className="title-underline"></div>
+        </div>
+        <p>
+          BugPilot is an open-source project aimed at providing an intuitive and
+          user-friendly web-based interface for tracking and managing software
+          bugs. The app is built using popular web technologies such as React,
+          Context API, MySQL, and Spring Boot, making it highly customizable and
+          flexible.
+        </p>
+        <p>
+          One of the key benefits of using BugPilot is that it provides a simple
+          and intuitive interface for managing bugs. You can easily create,
+          view, and update bugs, assign them to team members, and track their
+          progress. Additionally, you can create projects, add team members, and
+          manage access control to ensure that only authorized users can access
+          sensitive data.
+          <br />
+          Overall, BugPilot is a valuable tool for any software development team
+          that wants to streamline their bug tracking and management processes.
+          With its easy-to-use interface, flexibility, and extensibility, it can
+          help you save time and effort while improving the quality of your
+          software. So why not give it a try and see how it can benefit your
+          team today!
+        </p>
+      </article>
+    </Wrapper>
   );
 };
 
@@ -36,29 +43,32 @@ const Wrapper = styled.section`
   display: grid;
   place-items: center;
   gap: 4rem;
+
+  .about-img {
+    border-radius: var(--borderRadius);
+    max-height: 500px;
+  }
+
   img {
     width: 100%;
-    display: block;
-    border-radius: var(--radius);
-    height: 500px;
+    border-radius: var(--borderRadius);
     object-fit: cover;
   }
+
   p {
     line-height: 2;
-    max-width: 45em;
-    margin: 0 auto;
-    margin-top: 2rem;
-    color: var(--clr-grey-5);
     text-transform: normal;
   }
   .title {
     text-align: left;
   }
-  .underline {
+  .title-underline {
     margin-left: 0;
   }
+
   @media (min-width: 992px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 40% 1fr;
   }
 `;
+
 export default About;

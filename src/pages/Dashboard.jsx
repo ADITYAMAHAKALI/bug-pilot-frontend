@@ -126,7 +126,7 @@ export const Wrapper = styled.div`
   }
 
   hr{
-    margin: 2rem auto;
+    margin: 2rem auto 4rem;
     width: 100%;
     border: 1px solid var(--grey-3);
     max-width: 800px;
