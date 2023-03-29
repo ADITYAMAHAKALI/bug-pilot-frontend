@@ -25,6 +25,7 @@ This is a simple yet powerful bug tracking app built with ReactJS. It provides f
 - [ ] About Page
 - [ ] Contact Page
 - [ ] Responsiveness
+- [ ] Provide a description for every bug
 
 #### Fixes
 
