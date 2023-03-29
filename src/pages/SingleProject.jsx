@@ -7,7 +7,7 @@ import {
 } from '../context';
 import { useEffect } from 'react';
 import { BugsModal } from '../components';
-import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
 import {
   IoCheckmarkCircleOutline,
   IoCloseCircleOutline,
@@ -96,7 +96,7 @@ const SingleProject = () => {
                       )}
                     </span>
                     <small>
-                      BugID: <strong>{bugId}</strong> by{' '}
+                      BugID: <strong>{bugId}</strong> by <FaUser />{' '}
                       <strong>
                         <u>{bugAuthor}</u>
                       </strong>
@@ -176,7 +176,7 @@ export const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: var(--fixedWidth);
     border-radius: var(--borderRadius);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
@@ -215,6 +215,12 @@ export const Wrapper = styled.div`
   .bug-link small {
     display: block;
     text-transform: unset;
+
+    svg {
+      vertical-align: middle;
+      margin-right: 0.25rem;
+      color: var(--grey-6);
+    }
   }
 
   .bug-footer {

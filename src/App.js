@@ -7,6 +7,7 @@ import {
   Login,
   Dashboard,
   SingleProject,
+  SingleBugPage,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
 
@@ -24,6 +25,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/:id" element={<SingleProject />} />
+          <Route
+            path="/dashboard/:id/bugs/:bugId"
+            element={<SingleBugPage />}
+          />
+          <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </main>
       <Footer />
