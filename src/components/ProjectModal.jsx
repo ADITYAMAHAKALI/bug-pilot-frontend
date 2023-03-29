@@ -29,6 +29,7 @@ const ProjectModal = () => {
               </label>
               <input
                 type="text"
+                required
                 id="projectName"
                 className="form-input"
                 value={project.projectName}
@@ -44,6 +45,7 @@ const ProjectModal = () => {
               </label>
               <textarea
                 id="projectDescription"
+                required
                 className="form-textarea"
                 value={project.projectDescription}
                 onChange={(e) => {

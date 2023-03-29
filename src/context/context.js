@@ -8,10 +8,6 @@ const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    console.log('hello');
-  }, []);
-
   // # Functions
   const openSidebar = () => {
     setIsSidebarOpen(true);
