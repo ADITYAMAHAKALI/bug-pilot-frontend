@@ -4,10 +4,11 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { useGlobalContext, useProjectContext } from '../context';
 import { ProjectModal } from '../components';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
   const { openModal } = useGlobalContext();
-  const { setModalStage, projects, getProject, deleteProject } =
+  const { setModalStage, projects, getProjects, getProject, deleteProject } =
     useProjectContext();
 
   // handle open modal
@@ -20,6 +21,10 @@ const Dashboard = () => {
     }
     openModal();
   };
+
+  // useEffect(() => {
+  //   getProjects();
+  // }, []);
 
   return (
     <Wrapper>
@@ -35,7 +40,11 @@ const Dashboard = () => {
         <div className="section-center">
           <div className="add-project">
             <h4>Create a new project</h4>
-            <button className="btn" onClick={() => handleOpenModal(null)}>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => handleOpenModal(null)}
+            >
               Add Project <MdCreateNewFolder />
             </button>
           </div>
@@ -52,7 +61,7 @@ const Dashboard = () => {
                   <h2>{projectName}</h2>
                   <p>{projectDescription}</p>
                   <Link
-                    to={`/project/${projectId}`}
+                    to={`/dashboard/${projectId}`}
                     className="btn btn-outline"
                   >
                     View Project
@@ -66,7 +75,11 @@ const Dashboard = () => {
                     >
                       <FaEdit />
                     </button>
-                    <button type="button" id="delete" onClick={deleteProject}>
+                    <button
+                      type="button"
+                      id="delete"
+                      onClick={() => deleteProject(projectId)}
+                    >
                       <FaTrash />
                     </button>
                   </div>
@@ -121,7 +134,7 @@ export const Wrapper = styled.div`
 
   .project-center {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 4rem 2rem;
   }
 

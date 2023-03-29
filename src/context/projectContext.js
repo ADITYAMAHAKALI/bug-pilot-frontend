@@ -23,11 +23,6 @@ const ProjectProvider = ({ children }) => {
 
   // handle project submit
   const handleProjectSubmit = () => {
-    if (!project.projectName || !project.projectDescription) {
-      alert('Please fill out all fields');
-      return;
-    }
-
     if (modalStage === 'add') {
       addProject(project);
     } else if (modalStage === 'edit') {
@@ -80,7 +75,7 @@ const ProjectProvider = ({ children }) => {
   // edit project
   const editProject = async (project) => {
     try {
-      const response = await fetch(`/api/projects/${project.id}`, {
+      const response = await fetch(`/api/projects/${project.projectId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +85,7 @@ const ProjectProvider = ({ children }) => {
       const data = await response.json();
       setProjects(
         projects.map((project) => {
-          return project.id === data.id ? { ...data } : project;
+          return project.projectId === data.id ? { ...data } : project;
         })
       );
     } catch (error) {
@@ -104,7 +99,7 @@ const ProjectProvider = ({ children }) => {
       await fetch(`/api/projects/${id}`, {
         method: 'DELETE',
       });
-      setProjects(projects.filter((project) => project.id !== id));
+      setProjects(projects.filter((project) => project.projectId !== id));
     } catch (error) {
       console.log(error);
     }
