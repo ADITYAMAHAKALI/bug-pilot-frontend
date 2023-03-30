@@ -14,7 +14,9 @@ const Sidebar = () => {
       <aside className={`sidebar ${isSidebarOpen ? 'show-sidebar' : null}`}>
         {/* header */}
         <div className="sidebar-header">
-          <img src={logo} alt="logo" className="logo" />
+          <Link to="/dashboard" className="nav-logo" onClick={closeSidebar}>
+            <img src={logo} alt="logo" className="logo" />
+          </Link>
           <button className="close-btn" onClick={closeSidebar}>
             <FaTimes />
           </button>
@@ -55,6 +57,9 @@ const SidebarContainer = styled.div`
   }
   .close-btn:hover {
     color: var(--red-light);
+  }
+  .nav-logo {
+    display: flex;
   }
   .logo {
     justify-self: center;

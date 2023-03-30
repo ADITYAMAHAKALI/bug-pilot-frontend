@@ -222,7 +222,7 @@ svg {
 }
 .form-label {
   display: block;
-  /* font-size: var(--smallText); */
+  font-size: var(--smallText);
   margin-bottom: 0.5rem;
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
@@ -242,7 +242,7 @@ svg {
   height: 7rem;
 }
 ::placeholder {
-  font-family: inherit;
+  font-family: var(--bodyFont);
   color: var(--grey-5);
 }
 .form-alert {
