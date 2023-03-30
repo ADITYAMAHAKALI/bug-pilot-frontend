@@ -7,7 +7,24 @@ import { useGlobalContext } from '../context/context';
 import AuthButtons from './AuthButtons';
 
 const Sidebar = () => {
-  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+  const { isSidebarOpen, closeSidebar, user } = useGlobalContext();
+  const sidebarLinks = [
+    {
+      id: 1,
+      text: `${user ? 'dashboard' : 'home'}`,
+      url: `${user ? '/dashboard' : '/'}`,
+    },
+    {
+      id: 2,
+      text: 'about',
+      url: '/about',
+    },
+    {
+      id: 3,
+      text: 'contact',
+      url: '/contact',
+    },
+  ];
 
   return (
     <SidebarContainer>
@@ -24,7 +41,7 @@ const Sidebar = () => {
 
         {/* links */}
         <ul className="links">
-          {links.map(({ id, text, url }) => (
+          {sidebarLinks.map(({ id, text, url }) => (
             <li key={id} onClick={closeSidebar}>
               <Link to={url}>{text}</Link>
             </li>

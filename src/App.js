@@ -8,10 +8,14 @@ import {
   Dashboard,
   SingleProject,
   SingleBugPage,
+  ProtectedRoute,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
+import { useGlobalContext } from './context';
 
 function App() {
+  const { user } = useGlobalContext();
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -23,11 +27,29 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/:id" element={<SingleProject />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute user={user}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/:id"
+            element={
+              <ProtectedRoute user={user}>
+                <SingleProject />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard/:id/bugs/:bugId"
-            element={<SingleBugPage />}
+            element={
+              <ProtectedRoute user={user}>
+                <SingleBugPage />
+              </ProtectedRoute>
+            }
           />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>

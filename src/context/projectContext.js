@@ -74,7 +74,6 @@ const ProjectProvider = ({ children }) => {
         console.log('response', response);
         const data = await response.json();
         setProjects([...projects, data]);
-        alert('Project added successfully');
       } else {
         console.log('user is not login ');
         Navigate('/login');

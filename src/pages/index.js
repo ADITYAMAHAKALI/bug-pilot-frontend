@@ -6,6 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import SingleProject from './SingleProject';
 import SingleBugPage from './SingleBugPage';
+import ProtectedRoute from './ProtectedRoute';
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   Register,
   SingleProject,
   SingleBugPage,
+  ProtectedRoute,
 };
