@@ -4,6 +4,7 @@ import { useContext } from 'react';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+  const SERVER_URL = 'http://localhost:9090';
   const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +37,8 @@ const AppProvider = ({ children }) => {
         openModal,
         closeModal,
         user,
-        setUser
+        setUser,
+        SERVER_URL,
       }}
     >
       {children}

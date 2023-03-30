@@ -37,6 +37,15 @@ const Wrapper = styled.section`
   display: grid;
   place-items: center;
 
+  h1 {
+    text-shadow: 0 0 1px var(--black);
+  }
+
+  h1 span {
+    color: var(--primary-5);
+    text-shadow: 0 0 2px var(--primary-5);
+  }
+
   .img-container {
     display: none;
   }
@@ -55,15 +64,6 @@ const Wrapper = styled.section`
   @media (min-width: 992px) {
     grid-template-columns: 1fr 1fr;
     gap: 8rem;
-
-    h1 {
-      text-shadow: 0 0 1px var(--black);
-    }
-
-    h1 span {
-      color: var(--primary-5);
-      text-shadow: 0 0 2px var(--primary-5);
-    }
 
     .img-container {
       display: block;

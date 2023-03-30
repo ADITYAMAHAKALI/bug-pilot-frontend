@@ -18,7 +18,8 @@ const SingleProject = () => {
   const { id: projectId } = params;
   const { openModal } = useGlobalContext();
   const { getProject, project } = useProjectContext();
-  const { setModalStage, bugs, getBugs,setBug, bug, getBug, deleteBug } = useBugsContext();
+  const { setModalStage, bugs, getBugs, setBug, bug, getBug, deleteBug } =
+    useBugsContext();
 
   const getBugByProjectId = async (projectId) => {
     try {
@@ -28,13 +29,13 @@ const SingleProject = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // handle open modal
   const handleOpenModal = (id) => {
     if (id) {
       setModalStage('edit');
-      getBug(projectId,id);
+      getBug(projectId, id);
     } else {
       setModalStage('add');
     }
@@ -46,26 +47,25 @@ const SingleProject = () => {
   }, [bug]);
 
   useEffect(() => {
-    getProject(projectId)
+    getProject(projectId);
 
-    getBugByProjectId(projectId)
+    getBugByProjectId(projectId);
   }, []);
 
   return (
     <Wrapper>
-      <BugsModal project={project}/>
+      <BugsModal project={project} />
       <header className="section">
         <div className="title">
           <h1>{project?.projectName} </h1>
           <div className="title-underline"></div>
-          <br />
-          <h3>{project?.projectDescription}</h3> 
+          <p>{project?.projectDescription}</p>
         </div>
       </header>
 
       <section className="section">
         <div className="section-center">
-          <h3 className="bugs-title">List of all the Bugs in the project {project.projectName}</h3>
+          <h3 className="bugs-title">List of all the Bugs</h3>
 
           <div className="bugs-utilities">
             <input type="text" placeholder="Search Bug" />
@@ -83,54 +83,55 @@ const SingleProject = () => {
           <hr />
 
           <div className="bugs-center">
-            {bugs!==undefined && bugs.map((bug) => {
-              const { bugId, bugTitle, bugAuthor, bugLabel, open } = bug;
+            {bugs !== undefined &&
+              bugs.map((bug) => {
+                const { bugId, bugTitle, bugAuthor, open } = bug;
 
-              return (
-                <article key={bugId} className="bug">
-                  <Link
-                    to={`/dashboard/${projectId}/bugs/${bugId}`}
-                    className="bug-link"
-                  >
-                    <h4>{bugTitle}</h4>
-                    <span className={`bug-status ${open && 'open'}`}>
-                      {open === true ? (
-                        <>
-                          <IoCheckmarkCircleOutline /> Open
-                        </>
-                      ) : (
-                        <>
-                          <IoCloseCircleOutline /> Closed
-                        </>
-                      )}
-                    </span>
-                    <small>
-                      BugID: <strong>{bugId}</strong> by{' '}
-                      <strong>
-                        <u>{bugAuthor}</u>
-                      </strong>
-                    </small>
-                  </Link>
+                return (
+                  <article key={bugId} className="bug">
+                    <Link
+                      to={`/dashboard/${projectId}/bugs/${bugId}`}
+                      className="bug-link"
+                    >
+                      <h4>{bugTitle}</h4>
+                      <span className={`bug-status ${open && 'open'}`}>
+                        {open === true ? (
+                          <>
+                            <IoCheckmarkCircleOutline /> Open
+                          </>
+                        ) : (
+                          <>
+                            <IoCloseCircleOutline /> Closed
+                          </>
+                        )}
+                      </span>
+                      <small>
+                        BugID: <strong>{bugId}</strong> by{' '}
+                        <strong>
+                          <u>{bugAuthor}</u>
+                        </strong>
+                      </small>
+                    </Link>
 
-                  <div className="bug-footer">
-                    <button
-                      type="button"
-                      id="edit"
-                      onClick={() => handleOpenModal(bugId)}
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      type="button"
-                      id="delete"
-                      onClick={() => deleteBug(bugId, projectId)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
+                    <div className="bug-footer">
+                      <button
+                        type="button"
+                        id="edit"
+                        onClick={() => handleOpenModal(bugId)}
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        type="button"
+                        id="delete"
+                        onClick={() => deleteBug(bugId, projectId)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
           </div>
         </div>
       </section>

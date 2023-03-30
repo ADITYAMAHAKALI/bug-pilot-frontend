@@ -7,10 +7,9 @@ import { ProjectModal } from '../components';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
-  const { openModal } = useGlobalContext();
-  const { setModalStage, projects,project, getProjects, getProject, deleteProject } =
+  const { openModal, user, setUser } = useGlobalContext();
+  const { setModalStage, projects, getProjects, getProject, deleteProject } =
     useProjectContext();
-  const { user,setUser } = useGlobalContext();
 
   // handle open modal
   const handleOpenModal = (id) => {
@@ -24,22 +23,26 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')))
-}, []);
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
-useEffect(() => {
-    getProjects()
-}, [user]);
-useEffect(() => {
-    getProjects()
-}, [projects]);
+  useEffect(() => {
+    getProjects();
+  }, [user]);
+
+  useEffect(() => {
+    getProjects();
+  }, [projects]);
 
   return (
     <Wrapper>
       <ProjectModal />
       <header className="section">
         <div className="title">
-          <h1> Welcome {user.username} Your Projects</h1>
+          <p>
+            Hello, <span>{user?.username}!</span>
+          </p>
+          <h1>Your Projects</h1>
           <div className="title-underline"></div>
         </div>
       </header>
@@ -60,40 +63,41 @@ useEffect(() => {
           {/* <hr /> */}
 
           <div className="project-center">
-            {projects && projects?.map((project) => {
-              const { projectId, projectName, projectDescription } = project;
+            {projects &&
+              projects?.map((project) => {
+                const { projectId, projectName, projectDescription } = project;
 
-              return (
-                <article key={projectId} className="project">
-                  <span>ID: {projectId}</span>
-                  <h2>{projectName}</h2>
-                  <p>{projectDescription}</p>
-                  <Link
-                    to={`/dashboard/${projectId}`}
-                    className="btn btn-outline"
-                  >
-                    View Project
-                  </Link>
+                return (
+                  <article key={projectId} className="project">
+                    <span>ID: {projectId}</span>
+                    <h2>{projectName}</h2>
+                    <p>{projectDescription}</p>
+                    <Link
+                      to={`/dashboard/${projectId}`}
+                      className="btn btn-outline"
+                    >
+                      View Project
+                    </Link>
 
-                  <div className="project-footer">
-                    <button
-                      type="button"
-                      id="edit"
-                      onClick={() => handleOpenModal(projectId)}
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      type="button"
-                      id="delete"
-                      onClick={() => deleteProject(projectId)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
+                    <div className="project-footer">
+                      <button
+                        type="button"
+                        id="edit"
+                        onClick={() => handleOpenModal(projectId)}
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        type="button"
+                        id="delete"
+                        onClick={() => deleteProject(projectId)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
           </div>
         </div>
       </section>
@@ -105,6 +109,13 @@ export const Wrapper = styled.div`
   header {
     background: var(--primary-1);
     text-align: center;
+
+    p{
+      margin: 0 auto .5rem;
+      span{
+        font-weight: 700;
+      }
+    }
 
     .title {
       margin-bottom: 0;

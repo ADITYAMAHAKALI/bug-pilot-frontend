@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Login = () => {
-  const { user, setUser } = useGlobalContext();
+  const { user, setUser, SERVER_URL } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Login = () => {
   //------------------- user Api -------------------//
   const getUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/users/${id}`);
+      const response = await fetch(`${SERVER_URL}/api/users/${id}`);
       const data = await response.json();
       // console.log('data', data)
       const new_user = {
@@ -32,8 +32,8 @@ const Login = () => {
       email: email,
       password: password,
     };
-    await fetch("http://localhost:9090/login", {
-      method: "POST",
+    await fetch(`${SERVER_URL}/login`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
