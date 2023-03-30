@@ -1,6 +1,7 @@
 import { FaTimes } from 'react-icons/fa';
 import { useGlobalContext, useProjectContext } from '../context';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 const ProjectModal = () => {
   const { isModalOpen, closeModal } = useGlobalContext();
@@ -12,6 +13,9 @@ const ProjectModal = () => {
     handleProjectSubmit();
     closeModal();
   };
+  // useEffect(()=>{
+  //   console.log('project', project)
+  // },[])
 
   return (
     <Wrapper>
@@ -23,6 +27,7 @@ const ProjectModal = () => {
         <div className="modal-container">
           <h3>{modalStage} Project</h3>
           <form onSubmit={handleSubmit}>
+          {/* {modalStage === 'edit' && console.log('project', project)}   */}
             <div className="form-row">
               <label htmlFor="projectName" className="form-label">
                 Project Name:

@@ -36,6 +36,7 @@ const AppProvider = ({ children }) => {
         openModal,
         closeModal,
         user,
+        setUser
       }}
     >
       {children}
