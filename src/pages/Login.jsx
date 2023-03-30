@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../context';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FormAlert } from '../components';
 
 const Login = () => {
-  const { user, setUser } = useGlobalContext();
+  const { user, setUser, SERVER_URL, openFormAlert, formAlert } =
+    useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const Login = () => {
   //------------------- user Api -------------------//
   const getUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/users/${id}`);
+      const response = await fetch(`${SERVER_URL}/api/users/${id}`);
       const data = await response.json();
       // console.log('data', data)
       const new_user = {
@@ -32,8 +34,8 @@ const Login = () => {
       email: email,
       password: password,
     };
-    await fetch("http://localhost:9090/login", {
-      method: "POST",
+    await fetch(`${SERVER_URL}/login`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -62,6 +64,7 @@ const Login = () => {
         // the dashboard of a particular user
       } else {
         console.log('Login Failed');
+        openFormAlert('Wrong Email or Password');
         // in this case we want some message so that user cant
         // enter correct credentials or user doesn't exist
       }
@@ -73,6 +76,13 @@ const Login = () => {
       <div className="section-center">
         <form className="form" onSubmit={handleLogin}>
           <h2>login</h2>
+
+          {
+            // if the form alert is open then we want to show the alert
+            formAlert.isFormAlertOpen && (
+              <FormAlert alertMsg={formAlert.message} />
+            )
+          }
 
           <div className="form-row">
             <label htmlFor="email" className="form-label">

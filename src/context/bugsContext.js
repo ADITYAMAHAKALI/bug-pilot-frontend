@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
-import { useEffect } from 'react';
+import { useGlobalContext } from './context';
 
 const BugsContext = React.createContext();
 
 const BugsProvider = ({ children }) => {
+  const { SERVER_URL } = useGlobalContext();
   const [modalStage, setModalStage] = useState('add');
   const [bugs, setBugs] = useState([]);
-  
+
   const [bug, setBug] = useState({
     bugId: null,
     bugTitle: '',
-    // bugDescription: '',
+    bugDescription: '',
     bugAuthor: '',
     bugLabel: '',
     bugStatus: 'open',
@@ -21,7 +22,7 @@ const BugsProvider = ({ children }) => {
     setBug({
       bugId: null,
       bugTitle: '',
-      // bugDescription: '',
+      bugDescription: '',
       bugAuthor: '',
       bugLabel: '',
       bugStatus: 'open',
@@ -31,53 +32,55 @@ const BugsProvider = ({ children }) => {
   // handle bug submit
   const handleBugSubmit = (project) => {
     if (modalStage === 'add') {
-      addBug(bug,project);
+      addBug(bug, project);
     } else if (modalStage === 'edit') {
-      editBug(bug,project);
+      editBug(bug, project);
     }
 
     clearBug();
   };
 
   // add new bug
-  const addBug = async (bug,project) => {
-    console.log('bug', bug)
-    console.log('projecct', project)
+  const addBug = async (bug, project) => {
+    console.log('bug', bug);
+    console.log('project', project);
     const apiObj = {
-      "bugTitle": bug.bugTitle,
-      "bugDescription": bug.bugDescription,
-      "bugAuthor": project.user.username,
-      "bugLabel": bug.bugLabel,
-      // "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false
-    }
+      bugTitle: bug.bugTitle,
+      bugDescription: bug.bugDescription,
+      bugAuthor: project.user.username,
+      bugLabel: bug.bugLabel,
+      open: bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
+    };
     try {
-      const response = await fetch(`http://localhost:9090/api/${project.projectId}/bug`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(apiObj),
-      });
+      const response = await fetch(
+        `${SERVER_URL}/api/${project.projectId}/bug`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(apiObj),
+        }
+      );
       const data = await response.json();
       setBugs([...bugs, data]);
-      
     } catch (error) {
       console.log(error);
     }
   };
 
   // edit bug
-  const editBug = async (bug,project) => {
+  const editBug = async (bug, project) => {
     const apiObj = {
-      "bugTitle": bug.bugTitle,
-      "bugDescription": bug.bugDescription,
-      "bugAuthor": project.user.username,
-      "bugLabel": bug.bugLabel,
-      "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
-    }
+      bugTitle: bug.bugTitle,
+      bugDescription: bug.bugDescription,
+      bugAuthor: project.user.username,
+      bugLabel: bug.bugLabel,
+      open: bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
+    };
     try {
       const response = await fetch(
-        `http://localhost:9090/api/${project.projectId}/bug/${bug.bugId}`,
+        `${SERVER_URL}/api/${project.projectId}/bug/${bug.bugId}`,
         {
           method: 'PUT',
           headers: {
@@ -92,19 +95,22 @@ const BugsProvider = ({ children }) => {
           return bug.bugId === data.id ? { ...data } : bug;
         })
       );
-      getBugs(project.projectId)
+      getBugs(project.projectId);
     } catch (error) {
       console.log(error);
     }
   };
 
   // delete bug
-  const deleteBug = async (id,projectId) => {
+  const deleteBug = async (id, projectId) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/${projectId}/bug/${id}/`, {
-        method: 'DELETE',
-      });
-      console.log('response', response)
+      const response = await fetch(
+        `${SERVER_URL}/api/${projectId}/bug/${id}/`,
+        {
+          method: 'DELETE',
+        }
+      );
+      console.log('response', response);
       setBugs(bugs.filter((bug) => bug.bugId !== id));
     } catch (error) {
       console.log(error);
@@ -114,7 +120,7 @@ const BugsProvider = ({ children }) => {
   // get all bugs
   const getBugs = async (projectId) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/${projectId}/bug`);
+      const response = await fetch(`${SERVER_URL}/api/${projectId}/bug`);
       const data = await response.json();
       setBugs(data);
     } catch (error) {
@@ -123,11 +129,11 @@ const BugsProvider = ({ children }) => {
   };
 
   // get single bug
-  const getBug = async (projectId,id) => {
+  const getBug = async (projectId, id) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/${projectId}/bug/${id}`);
+      const response = await fetch(`${SERVER_URL}/api/${projectId}/bug/${id}`);
       const data = await response.json();
-      console.log('response', response)
+      console.log('response', response);
       setBug({
         ...data,
         bugStatus: data.open ? 'open' : 'closed',

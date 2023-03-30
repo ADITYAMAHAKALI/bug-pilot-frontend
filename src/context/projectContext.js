@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { projectsData } from '../utils/data';
 import { useGlobalContext } from '../context';
 import { Navigate } from 'react-router-dom';
 const ProjectContext = React.createContext();
@@ -8,7 +7,7 @@ const ProjectProvider = ({ children }) => {
   const [modalStage, setModalStage] = useState('add');
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
-  const { user } = useGlobalContext();
+  const { user, SERVER_URL } = useGlobalContext();
 
   // clear current project
   const clearProject = () => {
@@ -33,11 +32,11 @@ const ProjectProvider = ({ children }) => {
   // get all projects
   const getProjects = async () => {
     try {
-      const id = user.id
-      const response = await fetch(`/api/${id}/project`);
+      const id = user.id;
+      const response = await fetch(`${SERVER_URL}/api/${id}/project`);
       const data = await response.json();
       setProjects(data);
-     // console.log('data', data)
+      // console.log('data', data)
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +45,9 @@ const ProjectProvider = ({ children }) => {
   // get single project
   const getProject = async (id) => {
     try {
-      const response = await fetch(`/api/${user?.id}/project/${id}`);
+      const response = await fetch(
+        `${SERVER_URL}/api/${user?.id}/project/${id}`
+      );
       const data = await response.json();
       setProject(data);
     } catch (error) {
@@ -57,26 +58,25 @@ const ProjectProvider = ({ children }) => {
   // add new project
   const addProject = async (project) => {
     const apiObj = {
-      "projectName": project.projectName,
-      "projectDescription": project.projectDescription,
-    }
-    console.log('apiObj', apiObj)
+      projectName: project.projectName,
+      projectDescription: project.projectDescription,
+    };
+    console.log('apiObj', apiObj);
     try {
-      if(user!== undefined){
-        const response = await fetch(`/api/${user.id}/project`, {
+      if (user !== undefined) {
+        const response = await fetch(`${SERVER_URL}/api/${user.id}/project`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(apiObj),
         });
-        console.log('response', response)
+        console.log('response', response);
         const data = await response.json();
         setProjects([...projects, data]);
-        alert('Project added successfully');
-      }else{
-        console.log('user is not login ')
-        Navigate('/login')
+      } else {
+        console.log('user is not login ');
+        Navigate('/login');
       }
     } catch (error) {
       console.log(error);
@@ -86,22 +86,25 @@ const ProjectProvider = ({ children }) => {
   // edit project
   const editProject = async (project) => {
     const apiObj = {
-      "projectName": project.projectName,
-      "projectDescription": project.projectDescription,
-    }
-    console.log('project', JSON.stringify(project))
-    console.log('project', JSON.stringify(apiObj))
+      projectName: project.projectName,
+      projectDescription: project.projectDescription,
+    };
+    console.log('project', JSON.stringify(project));
+    console.log('project', JSON.stringify(apiObj));
 
     try {
-      const response = await fetch(`/api/${user.id}/project/${project.projectId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(apiObj),
-      });
+      const response = await fetch(
+        `${SERVER_URL}/api/${user.id}/project/${project.projectId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(apiObj),
+        }
+      );
       const data = await response.json();
-      console.log('data', data)
+      console.log('data', data);
       setProjects(
         projects.map((project) => {
           return project.projectId === data.id ? { ...data } : project;
@@ -115,16 +118,18 @@ const ProjectProvider = ({ children }) => {
   // delete project
   const deleteProject = async (id) => {
     try {
-      const response = await fetch(`/api/${user.id}/project/${id}`, {
-        method: 'DELETE',
-      });
-      console.log('response', response)
+      const response = await fetch(
+        `${SERVER_URL}/api/${user.id}/project/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      console.log('response', response);
       setProjects(projects.filter((project) => project.projectId !== id));
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   return (
     <ProjectContext.Provider
@@ -147,10 +152,6 @@ const ProjectProvider = ({ children }) => {
     </ProjectContext.Provider>
   );
 };
-
-
-
-
 
 const useProjectContext = () => {
   return useContext(ProjectContext);

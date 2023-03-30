@@ -8,8 +8,10 @@ import {
   Dashboard,
   SingleProject,
   SingleBugPage,
+  ProtectedRoute,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
+import { useGlobalContext } from './context';
 
 function App() {
   return (
@@ -23,11 +25,29 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/:id" element={<SingleProject />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/:id"
+            element={
+              <ProtectedRoute>
+                <SingleProject />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard/:id/bugs/:bugId"
-            element={<SingleBugPage />}
+            element={
+              <ProtectedRoute>
+                <SingleBugPage />
+              </ProtectedRoute>
+            }
           />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>

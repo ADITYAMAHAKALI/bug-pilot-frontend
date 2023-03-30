@@ -5,7 +5,7 @@ import {
   useGlobalContext,
   useProjectContext,
 } from '../context';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BugsModal } from '../components';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import {
@@ -18,15 +18,22 @@ const SingleProject = () => {
   const { id: projectId } = params;
   const { openModal } = useGlobalContext();
   const { getProject, project } = useProjectContext();
-  const { setModalStage, bugs, getBugs,setBug, bug, getBug, deleteBug } = useBugsContext();
+  const { setModalStage, bugs, getBugs, bug, getBug, deleteBug } =
+    useBugsContext();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredBugs, setFilteredBugs] = useState([]);
 
-  const getBugByProjectId = async (projectId) => {
-    try {
-      const response = await fetch(`/api/projects/${projectId}/bugs`);
-      const data = await response.json();
-      setBug(data);
-    } catch (error) {
-      console.log(error);
+  function handleSearchInput(e) {
+    const searchTerm = e.target.value;
+    setSearchQuery(searchTerm);
+
+    if (searchTerm !== '') {
+      const newBugs = bugs.filter((bug) =>
+        bug.bugTitle.toLowerCase().includes(searchTerm)
+      );
+      setFilteredBugs(newBugs);
+    } else {
+      setFilteredBugs(bugs);
     }
   }
 
@@ -34,7 +41,7 @@ const SingleProject = () => {
   const handleOpenModal = (id) => {
     if (id) {
       setModalStage('edit');
-      getBug(projectId,id);
+      getBug(projectId, id);
     } else {
       setModalStage('add');
     }
@@ -43,34 +50,39 @@ const SingleProject = () => {
 
   useEffect(() => {
     getBugs(projectId);
+    setFilteredBugs(bugs);
   }, [bug]);
 
   useEffect(() => {
-    getProject(projectId)
-
-    getBugByProjectId(projectId)
-  }, []);
+    getProject(projectId);
+    setFilteredBugs(bugs);
+  }, [bugs]);
 
   return (
     <Wrapper>
-      <BugsModal project={project}/>
+      <BugsModal project={project} />
       <header className="section">
         <div className="title">
           <h1>{project?.projectName} </h1>
           <div className="title-underline"></div>
-          <br />
-          <h3>{project?.projectDescription}</h3> 
+          <p>{project?.projectDescription}</p>
         </div>
       </header>
 
       <section className="section">
         <div className="section-center">
-          <h3 className="bugs-title">List of all the Bugs in the project {project.projectName}</h3>
+          <h3 className="bugs-title">List of all the Bugs</h3>
 
           <div className="bugs-utilities">
-            <input type="text" placeholder="Search Bug" />
-            <button>Sort By</button>
-            <button>Filter By</button>
+            <input
+              type="text"
+              className="form-input"
+              placeholder="Search Bug"
+              value={searchQuery}
+              onChange={handleSearchInput}
+            />
+            {/* <button>Sort By</button>
+            <button>Filter By</button> */}
             <button
               type="button"
               className="btn"
@@ -82,55 +94,65 @@ const SingleProject = () => {
 
           <hr />
 
+          {bugs.length === 0 && (
+            <p className="bugs-msg">No bugs added till now..</p>
+          )}
+          {bugs.length !== 0 && filteredBugs.length === 0 && (
+            <p className="bugs-msg">
+              No bugs found with title - "{searchQuery}"
+            </p>
+          )}
+
           <div className="bugs-center">
-            {bugs!==undefined && bugs.map((bug) => {
-              const { bugId, bugTitle, bugAuthor, bugLabel, open } = bug;
+            {bugs !== undefined &&
+              filteredBugs?.map((bug) => {
+                const { bugId, bugTitle, bugAuthor, open } = bug;
 
-              return (
-                <article key={bugId} className="bug">
-                  <Link
-                    to={`/dashboard/${projectId}/bugs/${bugId}`}
-                    className="bug-link"
-                  >
-                    <h4>{bugTitle}</h4>
-                    <span className={`bug-status ${open && 'open'}`}>
-                      {open === true ? (
-                        <>
-                          <IoCheckmarkCircleOutline /> Open
-                        </>
-                      ) : (
-                        <>
-                          <IoCloseCircleOutline /> Closed
-                        </>
-                      )}
-                    </span>
-                    <small>
-                      BugID: <strong>{bugId}</strong> by{' '}
-                      <strong>
-                        <u>{bugAuthor}</u>
-                      </strong>
-                    </small>
-                  </Link>
+                return (
+                  <article key={bugId} className="bug">
+                    <Link
+                      to={`/dashboard/${projectId}/bugs/${bugId}`}
+                      className="bug-link"
+                    >
+                      <h4>{bugTitle}</h4>
+                      <span className={`bug-status ${open && 'open'}`}>
+                        {open === true ? (
+                          <>
+                            <IoCheckmarkCircleOutline /> Open
+                          </>
+                        ) : (
+                          <>
+                            <IoCloseCircleOutline /> Closed
+                          </>
+                        )}
+                      </span>
+                      <small>
+                        BugID: <strong>{bugId}</strong> by{' '}
+                        <strong>
+                          <u>{bugAuthor}</u>
+                        </strong>
+                      </small>
+                    </Link>
 
-                  <div className="bug-footer">
-                    <button
-                      type="button"
-                      id="edit"
-                      onClick={() => handleOpenModal(bugId)}
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      type="button"
-                      id="delete"
-                      onClick={() => deleteBug(bugId, projectId)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
+                    <div className="bug-footer">
+                      <button
+                        type="button"
+                        id="edit"
+                        onClick={() => handleOpenModal(bugId)}
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
+                        type="button"
+                        id="delete"
+                        onClick={() => deleteBug(bugId, projectId)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
           </div>
         </div>
       </section>
@@ -158,10 +180,24 @@ export const Wrapper = styled.div`
 
   .bugs-utilities {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin: 2rem auto;
     max-width: 800px;
+
+    .form-input {
+      display: block;
+      width: auto;
+      padding: 0.75rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--grey-3);
+    }
+
+    .btn {
+      padding: 0.75rem 1rem;
+    }
   }
 
   hr {
@@ -185,7 +221,7 @@ export const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: var(--fixedWidth);
     border-radius: var(--borderRadius);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
@@ -256,6 +292,11 @@ export const Wrapper = styled.div`
         background: #ff2c2c;
       }
     }
+  }
+
+  .bugs-msg {
+    text-align: center;
+    margin: 2rem auto;
   }
 `;
 

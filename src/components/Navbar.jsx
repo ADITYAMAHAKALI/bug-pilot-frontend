@@ -2,19 +2,35 @@ import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { links } from '../utils/constants';
 import { useGlobalContext } from '../context/context';
 import AuthButtons from './AuthButtons';
 
 const Nav = () => {
-  const { openSidebar } = useGlobalContext();
+  const { openSidebar, user } = useGlobalContext();
+  const navLinks = [
+    {
+      id: 1,
+      text: `${user ? 'dashboard' : 'home'}`,
+      url: `${user ? '/dashboard' : '/'}`,
+    },
+    {
+      id: 2,
+      text: 'about',
+      url: '/about',
+    },
+    {
+      id: 3,
+      text: 'contact',
+      url: '/contact',
+    },
+  ];
 
   return (
     <NavContainer>
       <div className="nav-center">
         {/* nav-header */}
         <div className="nav-header">
-          <Link to="/dashboard" className="nav-logo">
+          <Link to="/" className="nav-logo">
             <img src={logo} alt="logo" />
           </Link>
           <button type="button" className="nav-toggle" onClick={openSidebar}>
@@ -24,7 +40,7 @@ const Nav = () => {
 
         {/* nav-links */}
         <ul className="nav-links">
-          {links.map(({ id, text, url }) => (
+          {navLinks.map(({ id, text, url }) => (
             <li key={id}>
               <Link to={url}>{text}</Link>
             </li>
