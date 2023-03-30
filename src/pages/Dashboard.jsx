@@ -39,7 +39,7 @@ useEffect(() => {
       <ProjectModal />
       <header className="section">
         <div className="title">
-          <h1>Your Projects</h1>
+          <h1> Welcome {user.username} Your Projects</h1>
           <div className="title-underline"></div>
         </div>
       </header>

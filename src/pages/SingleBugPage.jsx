@@ -10,11 +10,11 @@ import { FaUser } from 'react-icons/fa';
 
 const SingleBugPage = () => {
   const params = useParams();
-  const { bugId } = params;
+  const { id,bugId } = params;
   const { getBug, bug } = useBugsContext();
 
   useEffect(() => {
-    getBug(bugId);
+    getBug(id,bugId);
   }, [bugId]);
 
   return (
