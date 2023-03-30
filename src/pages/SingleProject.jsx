@@ -7,7 +7,7 @@ import {
 } from '../context';
 import { useEffect } from 'react';
 import { BugsModal } from '../components';
-import { FaPlus, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import {
   IoCheckmarkCircleOutline,
   IoCloseCircleOutline,
@@ -18,7 +18,17 @@ const SingleProject = () => {
   const { id: projectId } = params;
   const { openModal } = useGlobalContext();
   const { getProject, project } = useProjectContext();
-  const { setModalStage, bugs, getBugs, getBug, deleteBug } = useBugsContext();
+  const { setModalStage, bugs, getBugs,setBug, getBug, deleteBug } = useBugsContext();
+
+  const getBugByProjectId = async (projectId) => {
+    try {
+      const response = await fetch(`/api/projects/${projectId}/bugs`);
+      const data = await response.json();
+      setBug(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // handle open modal
   const handleOpenModal = (id) => {
@@ -36,6 +46,7 @@ const SingleProject = () => {
   // }, [projectId]);
 
   useEffect(() => {
+    console.log(bugs)
     getBugs();
   }, []);
 
@@ -44,19 +55,16 @@ const SingleProject = () => {
       <BugsModal />
       <header className="section">
         <div className="title">
-          {/* <h1>{project?.projectName}</h1> */}
+          <h1>{project?.projectName}</h1>
           <h1>Project ID: {projectId}</h1>
           <div className="title-underline"></div>
-          {/* <p>{project?.projectDescription}</p> */}
-          <p>
-            morem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          </p>
+          <p>{project?.projectDescription}</p> 
         </div>
       </header>
 
       <section className="section">
         <div className="section-center">
-          <h3 className="bugs-title">List of all the Bugs</h3>
+          <h3 className="bugs-title">List of all the Bugs of {projectId}</h3>
 
           <div className="bugs-utilities">
             <input type="text" placeholder="Search Bug" />
@@ -74,7 +82,7 @@ const SingleProject = () => {
           <hr />
 
           <div className="bugs-center">
-            {bugs?.map((bug) => {
+            {bugs!==undefined && bugs.map((bug) => {
               const { bugId, bugTitle, bugAuthor, bugLabel, open } = bug;
 
               return (
@@ -96,7 +104,7 @@ const SingleProject = () => {
                       )}
                     </span>
                     <small>
-                      BugID: <strong>{bugId}</strong> by <FaUser />{' '}
+                      BugID: <strong>{bugId}</strong> by{' '}
                       <strong>
                         <u>{bugAuthor}</u>
                       </strong>
@@ -176,7 +184,7 @@ export const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    max-width: var(--fixedWidth);
+    max-width: 800px;
     border-radius: var(--borderRadius);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
@@ -215,12 +223,6 @@ export const Wrapper = styled.div`
   .bug-link small {
     display: block;
     text-transform: unset;
-
-    svg {
-      vertical-align: middle;
-      margin-right: 0.25rem;
-      color: var(--grey-6);
-    }
   }
 
   .bug-footer {
