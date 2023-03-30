@@ -32,7 +32,7 @@ const Login = () => {
       email: email,
       password: password,
     };
-    await fetch("http://localhost:3000/login", {
+    await fetch("http://localhost:9090/login", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
