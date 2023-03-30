@@ -8,8 +8,9 @@ import { useEffect } from 'react';
 
 const Dashboard = () => {
   const { openModal } = useGlobalContext();
-  const { setModalStage, projects, getProjects, getProject, deleteProject } =
+  const { setModalStage, projects,project, getProjects, getProject, deleteProject } =
     useProjectContext();
+  const { user,setUser } = useGlobalContext();
 
   // handle open modal
   const handleOpenModal = (id) => {
@@ -22,9 +23,16 @@ const Dashboard = () => {
     openModal();
   };
 
-  // useEffect(() => {
-  //   getProjects();
-  // }, []);
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user')))
+}, []);
+
+useEffect(() => {
+    getProjects()
+}, [user]);
+useEffect(() => {
+    getProjects()
+}, [projects]);
 
   return (
     <Wrapper>
@@ -52,7 +60,7 @@ const Dashboard = () => {
           {/* <hr /> */}
 
           <div className="project-center">
-            {projects?.map((project) => {
+            {projects && projects?.map((project) => {
               const { projectId, projectName, projectDescription } = project;
 
               return (

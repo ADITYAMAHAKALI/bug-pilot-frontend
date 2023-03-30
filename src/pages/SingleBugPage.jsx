@@ -36,11 +36,8 @@ const SingleBugPage = () => {
 
             <article className="description">
               <h4>Description</h4>
-              {/* <p>{bug?.bugDescription}</p> */}
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reiciendis omnis officiis tenetur esse, culpa autem.
-              </p>
+              <p>{bug?.bugDescription}</p> 
+             
             </article>
 
             <article className="status">
