@@ -6,6 +6,7 @@ const BugsContext = React.createContext();
 const BugsProvider = ({ children }) => {
   const [modalStage, setModalStage] = useState('add');
   const [bugs, setBugs] = useState([]);
+  
   const [bug, setBug] = useState({
     bugId: null,
     bugTitle: '',
@@ -28,47 +29,61 @@ const BugsProvider = ({ children }) => {
   };
 
   // handle bug submit
-  const handleBugSubmit = () => {
+  const handleBugSubmit = (project) => {
     if (modalStage === 'add') {
-      addBug(bug);
+      addBug(bug,project);
     } else if (modalStage === 'edit') {
-      editBug(bug);
+      editBug(bug,project);
     }
 
     clearBug();
   };
 
   // add new bug
-  const addBug = async (bug) => {
+  const addBug = async (bug,project) => {
+    console.log('bug', bug)
+    console.log('projecct', project)
+    const apiObj = {
+      "bugTitle": bug.bugTitle,
+      "bugDescription": bug.bugDescription,
+      "bugAuthor": project.user.username,
+      "bugLabel": bug.bugLabel,
+      // "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false
+    }
     try {
-      const response = await fetch('http://localhost:9090/api/bug/', {
+      const response = await fetch(`http://localhost:9090/api/${project.projectId}/bug`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...bug,
-          open: bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
-        }),
+        body: JSON.stringify(apiObj),
       });
       const data = await response.json();
       setBugs([...bugs, data]);
+      
     } catch (error) {
       console.log(error);
     }
   };
 
   // edit bug
-  const editBug = async (bug) => {
+  const editBug = async (bug,project) => {
+    const apiObj = {
+      "bugTitle": bug.bugTitle,
+      "bugDescription": bug.bugDescription,
+      "bugAuthor": project.user.username,
+      "bugLabel": bug.bugLabel,
+      "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
+    }
     try {
       const response = await fetch(
-        `http://localhost:9090/api/bug/${bug.bugId}`,
+        `http://localhost:9090/api/${project.projectId}/bug/${bug.bugId}`,
         {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(bug),
+          body: JSON.stringify(apiObj),
         }
       );
       const data = await response.json();
@@ -77,17 +92,19 @@ const BugsProvider = ({ children }) => {
           return bug.bugId === data.id ? { ...data } : bug;
         })
       );
+      getBugs(project.projectId)
     } catch (error) {
       console.log(error);
     }
   };
 
   // delete bug
-  const deleteBug = async (id) => {
+  const deleteBug = async (id,projectId) => {
     try {
-      await fetch(`http://localhost:9090/api/bug/${id}/`, {
+      const response = await fetch(`http://localhost:9090/api/${projectId}/bug/${id}/`, {
         method: 'DELETE',
       });
+      console.log('response', response)
       setBugs(bugs.filter((bug) => bug.bugId !== id));
     } catch (error) {
       console.log(error);
@@ -95,9 +112,9 @@ const BugsProvider = ({ children }) => {
   };
 
   // get all bugs
-  const getBugs = async () => {
+  const getBugs = async (projectId) => {
     try {
-      const response = await fetch('http://localhost:9090/api/bug/');
+      const response = await fetch(`http://localhost:9090/api/${projectId}/bug`);
       const data = await response.json();
       setBugs(data);
     } catch (error) {
@@ -106,10 +123,11 @@ const BugsProvider = ({ children }) => {
   };
 
   // get single bug
-  const getBug = async (id) => {
+  const getBug = async (projectId,id) => {
     try {
-      const response = await fetch(`http://localhost:9090/api/bug/${id}`);
+      const response = await fetch(`http://localhost:9090/api/${projectId}/bug/${id}`);
       const data = await response.json();
+      console.log('response', response)
       setBug({
         ...data,
         bugStatus: data.open ? 'open' : 'closed',

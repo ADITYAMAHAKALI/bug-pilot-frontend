@@ -1,16 +1,24 @@
 import { FaTimes } from 'react-icons/fa';
 import { useGlobalContext, useBugsContext } from '../context';
 import styled from 'styled-components';
-
-const BugsModal = () => {
+import { useProjectContext } from '../context';
+import { useEffect } from 'react';
+const BugsModal = ({project}) => {
   const { isModalOpen, closeModal } = useGlobalContext();
   const { handleBugSubmit, bug, setBug, modalStage } = useBugsContext();
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleBugSubmit();
+    handleBugSubmit(project);
     closeModal();
   };
+  useEffect(() => {
+    if(modalStage === 'edit'){
+      setBug(project)
+    }
+  },[]);
+  
 
   return (
     <Wrapper>
@@ -38,7 +46,7 @@ const BugsModal = () => {
               />
             </div>
 
-            {/* <div className="form-row">
+            <div className="form-row">
               <label htmlFor="bugDescription" className="form-label">
                 Bug Description:
               </label>
@@ -54,7 +62,7 @@ const BugsModal = () => {
                   });
                 }}
               />
-            </div> */}
+            </div>
 
             <div className="form-row">
               <label htmlFor="bugAuthor" className="form-label">
@@ -65,10 +73,8 @@ const BugsModal = () => {
                 type="text"
                 id="bugAuthor"
                 className="form-input"
-                value={bug.bugAuthor}
-                onChange={(e) => {
-                  setBug({ ...bug, bugAuthor: e.target.value });
-                }}
+                value={project?.user?.username}
+                readOnly
               />
             </div>
 
@@ -98,6 +104,8 @@ const BugsModal = () => {
                 className="form-input"
                 value={bug.bugStatus}
                 onChange={(e) => {
+                  // after doing this it is working
+                  console.log('e.target.value', e.target.value) 
                   setBug({ ...bug, bugStatus: e.target.value });
                 }}
               >

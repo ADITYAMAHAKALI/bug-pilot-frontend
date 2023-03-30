@@ -18,7 +18,7 @@ const SingleProject = () => {
   const { id: projectId } = params;
   const { openModal } = useGlobalContext();
   const { getProject, project } = useProjectContext();
-  const { setModalStage, bugs, getBugs,setBug, getBug, deleteBug } = useBugsContext();
+  const { setModalStage, bugs, getBugs,setBug, bug, getBug, deleteBug } = useBugsContext();
 
   const getBugByProjectId = async (projectId) => {
     try {
@@ -34,37 +34,38 @@ const SingleProject = () => {
   const handleOpenModal = (id) => {
     if (id) {
       setModalStage('edit');
-      getBug(id);
+      getBug(projectId,id);
     } else {
       setModalStage('add');
     }
     openModal();
   };
 
-  // useEffect(() => {
-  //   getProject(projectId);
-  // }, [projectId]);
+  useEffect(() => {
+    getBugs(projectId);
+  }, [bug]);
 
   useEffect(() => {
-    console.log(bugs)
-    getBugs();
+    getProject(projectId)
+
+    getBugByProjectId(projectId)
   }, []);
 
   return (
     <Wrapper>
-      <BugsModal />
+      <BugsModal project={project}/>
       <header className="section">
         <div className="title">
-          <h1>{project?.projectName}</h1>
-          <h1>Project ID: {projectId}</h1>
+          <h1>{project?.projectName} </h1>
           <div className="title-underline"></div>
-          <p>{project?.projectDescription}</p> 
+          <br />
+          <h3>{project?.projectDescription}</h3> 
         </div>
       </header>
 
       <section className="section">
         <div className="section-center">
-          <h3 className="bugs-title">List of all the Bugs of {projectId}</h3>
+          <h3 className="bugs-title">List of all the Bugs in the project {project.projectName}</h3>
 
           <div className="bugs-utilities">
             <input type="text" placeholder="Search Bug" />
@@ -122,7 +123,7 @@ const SingleProject = () => {
                     <button
                       type="button"
                       id="delete"
-                      onClick={() => deleteBug(bugId)}
+                      onClick={() => deleteBug(bugId, projectId)}
                     >
                       <FaTrash />
                     </button>

@@ -12,7 +12,7 @@ const Login = () => {
   //------------------- user Api -------------------//
   const getUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/${id}`);
+      const response = await fetch(`http://localhost:9090/api/users/${id}`);
       const data = await response.json();
       // console.log('data', data)
       const new_user = {
@@ -32,9 +32,8 @@ const Login = () => {
       email: email,
       password: password,
     };
-
-    await fetch('http://localhost:3000/login', {
-      method: 'POST',
+    await fetch("http://localhost:9090/login", {
+      method: "POST",
       headers: {
         'Content-Type': 'application/json',
       },
