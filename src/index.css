@@ -246,9 +246,14 @@ svg {
   color: var(--grey-5);
 }
 .form-alert {
+  background-color: var(--red-light);
   color: var(--red-dark);
   letter-spacing: var(--letterSpacing);
   text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  border-radius: var(--borderRadius);
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 /* -loading  */

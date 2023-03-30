@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../context';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FormAlert } from '../components';
 
 const Login = () => {
-  const { user, setUser, SERVER_URL } = useGlobalContext();
+  const { user, setUser, SERVER_URL, openFormAlert, formAlert } =
+    useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -62,6 +64,7 @@ const Login = () => {
         // the dashboard of a particular user
       } else {
         console.log('Login Failed');
+        openFormAlert('Wrong Email or Password');
         // in this case we want some message so that user cant
         // enter correct credentials or user doesn't exist
       }
@@ -73,6 +76,13 @@ const Login = () => {
       <div className="section-center">
         <form className="form" onSubmit={handleLogin}>
           <h2>login</h2>
+
+          {
+            // if the form alert is open then we want to show the alert
+            formAlert.isFormAlertOpen && (
+              <FormAlert alertMsg={formAlert.message} />
+            )
+          }
 
           <div className="form-row">
             <label htmlFor="email" className="form-label">
