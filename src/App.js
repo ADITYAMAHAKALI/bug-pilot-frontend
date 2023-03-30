@@ -14,8 +14,6 @@ import { Navbar, Footer, Sidebar } from './components';
 import { useGlobalContext } from './context';
 
 function App() {
-  const { user } = useGlobalContext();
-
   return (
     <BrowserRouter>
       <Navbar />
@@ -30,7 +28,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             }
@@ -38,7 +36,7 @@ function App() {
           <Route
             path="/dashboard/:id"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <SingleProject />
               </ProtectedRoute>
             }
@@ -46,7 +44,7 @@ function App() {
           <Route
             path="/dashboard/:id/bugs/:bugId"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <SingleBugPage />
               </ProtectedRoute>
             }

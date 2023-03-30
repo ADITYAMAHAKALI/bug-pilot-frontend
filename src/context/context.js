@@ -13,6 +13,15 @@ const AppProvider = ({ children }) => {
     message: '',
   });
 
+  // get user if it exists in local storage
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log('the user is', user);
+    if (user) {
+      setUser(user);
+    }
+  }, []);
+
   // # Functions
   const openSidebar = () => {
     setIsSidebarOpen(true);
