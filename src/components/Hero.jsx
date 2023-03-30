@@ -10,11 +10,11 @@ const Hero = () => {
           Don't let <span>bugs</span> get the best of you
         </h1>
         <p>
-          Furniture is one such part of our homes that cannot be missed out in
-          any of the cases. It makes our home aesthetically valuable by giving
-          us all the comfort and relaxation that we desire. Certainly, one
-          cannot deny the fact that a home is not complete without the right set
-          of furniture.
+          Helping software development teams manage and track bugs in their
+          code. It enables efficient logging, prioritization, and resolution of
+          bugs, and provides insights into the status of bug fixes. The app
+          facilitates effective bug resolution and helps developers ensure the
+          quality and stability of their software products.
         </p>
         <div className="btn-container">
           <Link to="/login" className="btn">
@@ -27,7 +27,7 @@ const Hero = () => {
       </article>
 
       <article className="img-container">
-        <img src={heroImg} alt="hero-image" className="hero-img" />
+        <img src={heroImg} alt="hero" className="hero-img" />
       </article>
     </Wrapper>
   );
