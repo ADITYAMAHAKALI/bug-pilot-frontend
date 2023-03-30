@@ -62,6 +62,12 @@ const Dashboard = () => {
 
           {/* <hr /> */}
 
+          {projects.length === 0 && (
+            <p className="projects-msg">
+              No projects till now. Please add a project.
+            </p>
+          )}
+
           <div className="project-center">
             {projects &&
               projects?.map((project) => {
@@ -125,6 +131,7 @@ export const Wrapper = styled.div`
   .add-project {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.5rem;
     margin: 0 auto;
@@ -236,6 +243,11 @@ export const Wrapper = styled.div`
         background: #ff2c2c;
       }
     }
+  }
+
+  .projects-msg {
+    text-align: center;
+    margin: 4rem auto;
   }
 `;
 

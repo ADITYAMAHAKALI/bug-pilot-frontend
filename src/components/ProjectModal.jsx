@@ -27,7 +27,7 @@ const ProjectModal = () => {
         <div className="modal-container">
           <h3>{modalStage} Project</h3>
           <form onSubmit={handleSubmit}>
-          {/* {modalStage === 'edit' && console.log('project', project)}   */}
+            {/* {modalStage === 'edit' && console.log('project', project)}   */}
             <div className="form-row">
               <label htmlFor="projectName" className="form-label">
                 Project Name:
@@ -84,7 +84,7 @@ const Wrapper = styled.section`
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: grid;
+    display: none;
     place-items: center;
     transition: var(--transition);
     visibility: hidden;
@@ -92,6 +92,7 @@ const Wrapper = styled.section`
   }
   /* OPEN/CLOSE MODAL */
   .show-modal {
+    display: grid;
     visibility: visible;
     z-index: 10;
   }

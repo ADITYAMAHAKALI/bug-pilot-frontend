@@ -3,10 +3,9 @@ import { useGlobalContext, useBugsContext } from '../context';
 import styled from 'styled-components';
 import { useProjectContext } from '../context';
 import { useEffect } from 'react';
-const BugsModal = ({project}) => {
+const BugsModal = ({ project }) => {
   const { isModalOpen, closeModal } = useGlobalContext();
   const { handleBugSubmit, bug, setBug, modalStage } = useBugsContext();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,11 +13,10 @@ const BugsModal = ({project}) => {
     closeModal();
   };
   useEffect(() => {
-    if(modalStage === 'edit'){
-      setBug(project)
+    if (modalStage === 'edit') {
+      setBug(project);
     }
-  },[]);
-  
+  }, []);
 
   return (
     <Wrapper>
@@ -105,7 +103,7 @@ const BugsModal = ({project}) => {
                 value={bug.bugStatus}
                 onChange={(e) => {
                   // after doing this it is working
-                  console.log('e.target.value', e.target.value) 
+                  console.log('e.target.value', e.target.value);
                   setBug({ ...bug, bugStatus: e.target.value });
                 }}
               >
@@ -136,7 +134,7 @@ const Wrapper = styled.section`
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: grid;
+    display: none;
     place-items: center;
     transition: var(--transition);
     visibility: hidden;
@@ -144,6 +142,7 @@ const Wrapper = styled.section`
   }
   /* OPEN/CLOSE MODAL */
   .show-modal {
+    display: grid;
     visibility: visible;
     z-index: 10;
   }
