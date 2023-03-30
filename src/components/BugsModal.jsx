@@ -105,7 +105,7 @@ const BugsModal = ({project}) => {
                 value={bug.bugStatus}
                 onChange={(e) => {
                   // after doing this it is working
-                  //console.log('e.target.value', e.target.value) 
+                  console.log('e.target.value', e.target.value) 
                   setBug({ ...bug, bugStatus: e.target.value });
                 }}
               >

@@ -42,15 +42,16 @@ const BugsProvider = ({ children }) => {
   // add new bug
   const addBug = async (bug,project) => {
     console.log('bug', bug)
+    console.log('projecct', project)
     const apiObj = {
       "bugTitle": bug.bugTitle,
       "bugDescription": bug.bugDescription,
       "bugAuthor": project.user.username,
       "bugLabel": bug.bugLabel,
-      "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
+      // "open": bug.bugStatus.toLowerCase().trim() === 'open' ? true : false
     }
     try {
-      const response = await fetch(`http://localhost:9090/api/${project.id}/bug`, {
+      const response = await fetch(`http://localhost:9090/api/${project.projectId}/bug`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
