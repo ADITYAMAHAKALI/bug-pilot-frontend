@@ -20,7 +20,9 @@ This is a simple yet powerful bug tracking app built with ReactJS. It provides f
 - [x] UI for Bug Detail Page
 - [ ] Search by bug title
 - [ ] Sorting and Filtering for bugs (only if time)
-- [ ] Landing Page UI
+- [x] Landing Page UI
+- [x] Login Page UI
+- [x] Register Page UI
 - [x] About Page
 - [x] Contact Page
 - [x] Responsiveness

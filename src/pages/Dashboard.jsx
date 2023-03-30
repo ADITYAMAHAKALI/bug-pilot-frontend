@@ -49,7 +49,7 @@ const Dashboard = () => {
             </button>
           </div>
 
-          <hr />
+          {/* <hr /> */}
 
           <div className="project-center">
             {projects?.map((project) => {
@@ -103,29 +103,29 @@ export const Wrapper = styled.div`
     }
   }
 
-  .add-project{
+  .add-project {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    max-width: 600px;
+    gap: 1.5rem;
     margin: 0 auto;
 
     h4 {
       margin-bottom: 0;
     }
 
-    .btn{
+    .btn {
       padding: 0.5rem 1rem;
       font-size: 1rem;
 
-      svg{
+      svg {
         vertical-align: middle;
         font-size: 1.3rem;
       }
     }
   }
 
-  hr{
+  hr {
     margin: 2rem auto 4rem;
     width: 100%;
     border: 1px solid var(--grey-3);
@@ -134,8 +134,22 @@ export const Wrapper = styled.div`
 
   .project-center {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 4rem 2rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+
+    @media screen and (min-width: 892px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (min-width: 1200px) {
+      gap: 4rem
+    }
+
+    @media screen and (min-width: 1460px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5rem 6rem;
+    }
   }
 
   .project {
@@ -150,7 +164,7 @@ export const Wrapper = styled.div`
       position: absolute;
       top: 0;
       right: 0;
-      background: var(--grey-3);
+      background: var(--grey-2);
       padding: 0.25rem 0.5rem;
       font-size: 0.75rem;
       font-weight: 700;
