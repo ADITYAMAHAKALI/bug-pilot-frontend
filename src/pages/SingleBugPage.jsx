@@ -26,7 +26,7 @@ const SingleBugPage = () => {
         </div>
       </header>
 
-      <section>
+      <section className="section">
         <div className="section-center">
           <h3 className="bugs-title">Bug Details</h3>
           <div className="bug-details">
@@ -81,6 +81,10 @@ export const Wrapper = styled.div`
     .title {
       margin-bottom: 0;
     }
+  }
+
+  section.section{
+    padding-top:0;
   }
 
   .bugs-title {

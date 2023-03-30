@@ -14,7 +14,7 @@ const Nav = () => {
       <div className="nav-center">
         {/* nav-header */}
         <div className="nav-header">
-          <Link to="/" className="nav-logo">
+          <Link to="/dashboard" className="nav-logo">
             <img src={logo} alt="logo" />
           </Link>
           <button type="button" className="nav-toggle" onClick={openSidebar}>
@@ -88,7 +88,7 @@ const NavContainer = styled.nav`
         margin: 0 0.5rem;
       }
       a {
-        color: var(--primary-5);
+        color: var(--primary-6);
         font-size: 1rem;
         text-transform: capitalize;
         letter-spacing: var(--letterSpacing);
