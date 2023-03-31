@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  //------------------- user Api -------------------//
+  //\------------------- user Api -------------------//
   const getUser = async (id) => {
     try {
       const response = await fetch(`${SERVER_URL}/api/users/${id}`);
@@ -30,10 +30,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     const loginObj = {
       email: email,
       password: password,
     };
+
     await fetch(`${SERVER_URL}/login`, {
       method: 'POST',
       headers: {
@@ -43,30 +45,16 @@ const Login = () => {
     }).then(async (res) => {
       console.log('res', res);
       if (res.status === 200) {
-        //console.log("Login Success")
         const data = await res.json();
         // we will get the user id
         const new_user = await getUser(data.id);
         console.log('new_user', new_user);
         await setUser(new_user);
-        // if the user is logged in we can redirect to the dashboard
-        console.log(user);
-        // if(new_user !== undefined){
-        //   setUser(new_user)
-        //   // if the user is logged in we can redirect to the dashboard
-        //   console.log(user)
         localStorage.setItem('user', JSON.stringify(new_user));
         navigate('/dashboard');
-        // } else {
-        //   console.log("Some Unknown Error Occurred")
-        // }
-        // if the login is successful then we want to redirect to
-        // the dashboard of a particular user
       } else {
         console.log('Login Failed');
         openFormAlert('Wrong Email or Password');
-        // in this case we want some message so that user cant
-        // enter correct credentials or user doesn't exist
       }
     });
   };
