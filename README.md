@@ -19,7 +19,7 @@ This is a simple yet powerful bug tracking app built with ReactJS. It provides f
 - [x] CRUD Operations for Bugs related to any Project
 - [x] UI for Bug Detail Page
 - [x] Search by bug title
-- [ ] Sorting and Filtering for bugs (only if time)
+- [x] Sorting for bugs (only if time)
 - [x] Landing Page UI
 - [x] Login Page UI
 - [x] Register Page UI
@@ -33,7 +33,7 @@ This is a simple yet powerful bug tracking app built with ReactJS. It provides f
 - [x] Project CRUD APIs need testing (beware of `/api/bug` and `/api/bug/`) issue
 - [x] Bugs are not project specific
 - [x] CORS error for edit and delete bug
-- [ ] Delete bug only working in UI (API call is working fine)
+- [x] Delete bug only working in UI (API call is working fine)
 
 ## Getting Started
 

@@ -21,7 +21,7 @@ const AuthButtons = () => {
           Logout <FaUserMinus />
         </Link>
       ) : (
-        <Link to="/login" className="btn">
+        <Link to="/login" className="btn" onClick={closeSidebar}>
           Login <FaUserPlus />
         </Link>
       )}

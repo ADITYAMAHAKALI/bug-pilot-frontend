@@ -10,11 +10,19 @@ import { FaUser } from 'react-icons/fa';
 
 const SingleBugPage = () => {
   const params = useParams();
-  const { id,bugId } = params;
+  const { id, bugId } = params;
   const { getBug, bug } = useBugsContext();
 
+  // format date
+  const formatDate = (d) => {
+    const date = new Date(d);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    return formattedDate;
+  };
+
   useEffect(() => {
-    getBug(id,bugId);
+    getBug(id, bugId);
   }, [bugId]);
 
   return (
@@ -36,8 +44,7 @@ const SingleBugPage = () => {
 
             <article className="description">
               <h4>Description</h4>
-              <p>{bug?.bugDescription}</p> 
-             
+              <p>{bug?.bugDescription}</p>
             </article>
 
             <article className="status">
@@ -65,6 +72,11 @@ const SingleBugPage = () => {
             <article className="label">
               <h4>Label:</h4>
               <p>{bug?.bugLabel}</p>
+            </article>
+
+            <article className="author">
+              <h4>Created On:</h4>
+              <p>{formatDate(bug.bugCreatedOn)}</p>
             </article>
           </div>
         </div>
