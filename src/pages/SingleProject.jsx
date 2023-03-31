@@ -22,7 +22,9 @@ const SingleProject = () => {
     useBugsContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredBugs, setFilteredBugs] = useState([]);
+  const [sortQuery, setSortQuery] = useState('latest');
 
+  // handle search input
   function handleSearchInput(e) {
     const searchTerm = e.target.value;
     setSearchQuery(searchTerm);
@@ -34,6 +36,29 @@ const SingleProject = () => {
       setFilteredBugs(newBugs);
     } else {
       setFilteredBugs(bugs);
+    }
+  }
+
+  // handle sort input
+  function handleSortInput(e) {
+    const sortTerm = e.target.value;
+    setSortQuery(sortTerm);
+
+    if (sortTerm === 'latest') {
+      const newBugs = bugs.sort((a, b) => {
+        return new Date(b.bugCreatedOn) - new Date(a.bugCreatedOn);
+      });
+      setFilteredBugs(newBugs);
+    } else if (sortTerm === 'asc') {
+      const newBugs = bugs.sort((a, b) => {
+        return a.bugTitle.localeCompare(b.bugTitle);
+      });
+      setFilteredBugs(newBugs);
+    } else if (sortTerm === 'desc') {
+      const newBugs = bugs.sort((a, b) => {
+        return b.bugTitle.localeCompare(a.bugTitle);
+      });
+      setFilteredBugs(newBugs);
     }
   }
 
@@ -56,6 +81,7 @@ const SingleProject = () => {
   useEffect(() => {
     getProject(projectId);
     setFilteredBugs(bugs);
+    handleSortInput({ target: { value: 'latest' } });
   }, [bugs]);
 
   return (
@@ -81,8 +107,19 @@ const SingleProject = () => {
               value={searchQuery}
               onChange={handleSearchInput}
             />
-            {/* <button>Sort By</button>
-            <button>Filter By</button> */}
+            <div>
+              <span className="sort-title">Sort By</span>
+              <select
+                value={sortQuery}
+                onChange={handleSortInput}
+                className="sort-btn"
+              >
+                Sort By
+                <option value="latest">latest</option>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+            </div>
             <button
               type="button"
               className="btn"
@@ -297,6 +334,22 @@ export const Wrapper = styled.div`
   .bugs-msg {
     text-align: center;
     margin: 2rem auto;
+  }
+
+  .sort-title {
+    @media (min-width: 425px) {
+      border-left: 1px solid var(--grey-5);
+      padding-left: 1rem;
+    }
+  }
+
+  .sort-btn {
+    padding: 0.75rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--grey-3);
+    border-radius: var(--borderRadius);
+    text-transform: capitalize;
+    margin-left: 0.5rem;
   }
 `;
 

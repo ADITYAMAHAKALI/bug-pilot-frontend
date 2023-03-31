@@ -154,12 +154,24 @@ const Wrapper = styled.section`
     position: relative;
     max-width: 40rem;
     text-align: center;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
   }
 
   form {
-    padding: 2rem 1.5rem;
+    padding: 1rem 1.5rem;
     margin: 0 auto;
     text-align: left;
+
+    .form-row {
+      margin-bottom: 1rem;
+    }
+
+    .form-textarea {
+      height: 5rem;
+    }
   }
 
   .close-modal-btn {
