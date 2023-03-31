@@ -14,7 +14,7 @@ const Register = () => {
     password: '',
   });
 
-  //------------------- user Api -------------------//
+  //\------------------- user Api -------------------//
   const getUser = async (id) => {
     try {
       const response = await fetch(`${SERVER_URL}/api/users/${id}`);
@@ -31,7 +31,7 @@ const Register = () => {
     }
   };
 
-  // ------------------- Register -------------------//
+  //\ ------------------- Register -------------------//
   const handleRegister = async (e) => {
     e.preventDefault();
     const registerObj = {
@@ -53,7 +53,6 @@ const Register = () => {
         const new_user = await getUser(data.id);
         console.log('new_user', new_user);
         await setUser(new_user);
-        console.log(user);
         localStorage.setItem('user', JSON.stringify(new_user));
         navigate('/dashboard');
       } else {

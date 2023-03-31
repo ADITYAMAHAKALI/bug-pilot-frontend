@@ -11,7 +11,6 @@ import {
   ProtectedRoute,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
-import { useGlobalContext } from './context';
 
 function App() {
   return (
