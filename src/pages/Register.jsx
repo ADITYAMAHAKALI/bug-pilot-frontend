@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { FormAlert } from '../components';
 
 const Register = () => {
-  const { user, setUser, SERVER_URL, openFormAlert, formAlert } =
-    useGlobalContext();
+  const { setUser, SERVER_URL, openFormAlert, formAlert } = useGlobalContext();
   const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState({
     username: '',

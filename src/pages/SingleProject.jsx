@@ -76,12 +76,14 @@ const SingleProject = () => {
   useEffect(() => {
     getBugs(projectId);
     setFilteredBugs(bugs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bug]);
 
   useEffect(() => {
-    getProject(projectId);
     setFilteredBugs(bugs);
     handleSortInput({ target: { value: 'latest' } });
+    getProject(projectId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bugs]);
 
   return (

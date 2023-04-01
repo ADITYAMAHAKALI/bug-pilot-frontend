@@ -1,7 +1,6 @@
 import { FaTimes } from 'react-icons/fa';
 import { useGlobalContext, useProjectContext } from '../context';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const ProjectModal = () => {
   const { isModalOpen, closeModal } = useGlobalContext();

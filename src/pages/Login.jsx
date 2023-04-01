@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { FormAlert } from '../components';
 
 const Login = () => {
-  const { user, setUser, SERVER_URL, openFormAlert, formAlert } =
-    useGlobalContext();
+  const { setUser, SERVER_URL, openFormAlert, formAlert } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();

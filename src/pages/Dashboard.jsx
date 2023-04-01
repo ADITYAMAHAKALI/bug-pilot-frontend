@@ -7,7 +7,7 @@ import { ProjectModal } from '../components';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
-  const { openModal, user, setUser } = useGlobalContext();
+  const { openModal, user } = useGlobalContext();
   const { setModalStage, projects, getProjects, getProject, deleteProject } =
     useProjectContext();
 
@@ -23,16 +23,8 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
-
-  useEffect(() => {
     getProjects();
-  }, [user]);
-
-  useEffect(() => {
-    getProjects();
-  }, [projects]);
+  }, [projects, user, getProjects]);
 
   return (
     <Wrapper>

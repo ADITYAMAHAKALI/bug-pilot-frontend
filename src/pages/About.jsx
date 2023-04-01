@@ -5,7 +5,7 @@ const About = () => {
   return (
     <Wrapper className="section section-center">
       <article className="about-img">
-        <img src={aboutImg} alt="about-image" />
+        <img src={aboutImg} alt="about" />
       </article>
       <article>
         <div className="title">

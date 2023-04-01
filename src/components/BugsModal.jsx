@@ -1,8 +1,7 @@
 import { FaTimes } from 'react-icons/fa';
 import { useGlobalContext, useBugsContext } from '../context';
 import styled from 'styled-components';
-import { useProjectContext } from '../context';
-import { useEffect } from 'react';
+
 const BugsModal = ({ project }) => {
   const { isModalOpen, closeModal } = useGlobalContext();
   const { handleBugSubmit, bug, setBug, modalStage } = useBugsContext();
@@ -12,11 +11,6 @@ const BugsModal = ({ project }) => {
     handleBugSubmit(project);
     closeModal();
   };
-  useEffect(() => {
-    if (modalStage === 'edit') {
-      setBug(project);
-    }
-  }, []);
 
   return (
     <Wrapper>

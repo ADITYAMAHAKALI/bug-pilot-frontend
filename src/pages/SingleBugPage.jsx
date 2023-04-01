@@ -23,7 +23,8 @@ const SingleBugPage = () => {
 
   useEffect(() => {
     getBug(id, bugId);
-  }, [bugId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bugId, id]);
 
   return (
     <Wrapper>

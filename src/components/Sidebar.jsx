@@ -2,7 +2,6 @@ import logo from '../assets/logo.png';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
-import { links } from '../utils/constants';
 import { useGlobalContext } from '../context/context';
 import AuthButtons from './AuthButtons';
 
