@@ -14,12 +14,9 @@ const Register = () => {
         <form className="form" onSubmit={handleRegister}>
           <h2>Sign Up</h2>
 
-          {
-            // if the form alert is open then we want to show the alert
-            formAlert.isFormAlertOpen && (
-              <FormAlert alertMsg={formAlert.message} />
-            )
-          }
+          {formAlert.isFormAlertOpen && (
+            <FormAlert alertMsg={formAlert.message} />
+          )}
 
           <div className="form-row">
             <label htmlFor="username" className="form-label">

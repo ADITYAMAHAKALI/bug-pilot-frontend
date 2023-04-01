@@ -5,10 +5,7 @@ import { Link } from 'react-router-dom';
 import { useGlobalContext, useAuthContext } from '../context';
 import AuthButtons from './AuthButtons';
 
-const Nav = () => {
-  const { openSidebar } = useGlobalContext();
-  const { user } = useAuthContext();
-
+const Navbar = () => {
   const navLinks = [
     {
       id: 1,
@@ -26,6 +23,10 @@ const Nav = () => {
       url: '/contact',
     },
   ];
+
+  // context
+  const { openSidebar } = useGlobalContext();
+  const { user } = useAuthContext();
 
   return (
     <NavContainer>
@@ -122,4 +123,4 @@ const NavContainer = styled.nav`
   }
 `;
 
-export default Nav;
+export default Navbar;

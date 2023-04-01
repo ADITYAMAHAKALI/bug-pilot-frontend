@@ -1,26 +1,22 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useBugsContext } from '../context';
-import { useEffect } from 'react';
+import { formatDate } from '../utils/helper';
+import { FaUser } from 'react-icons/fa';
 import {
   IoCheckmarkCircleOutline,
   IoCloseCircleOutline,
 } from 'react-icons/io5';
-import { FaUser } from 'react-icons/fa';
 
 const SingleBugPage = () => {
   const params = useParams();
   const { id, bugId } = params;
+
+  // context
   const { getBug, bug } = useBugsContext();
 
-  // format date
-  const formatDate = (d) => {
-    const date = new Date(d);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options);
-    return formattedDate;
-  };
-
+  // # useEffect
   useEffect(() => {
     getBug(id, bugId);
     // eslint-disable-next-line react-hooks/exhaustive-deps

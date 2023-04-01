@@ -16,6 +16,7 @@ const BugsProvider = ({ children }) => {
     bugStatus: 'open',
   });
 
+  // # Functions
   // clear current bug
   const clearBug = () => {
     setBug({
@@ -39,10 +40,8 @@ const BugsProvider = ({ children }) => {
     clearBug();
   };
 
-  // add new bug
+  // add bug
   const addBug = async (bug, project) => {
-    console.log('bug', bug);
-    console.log('project', project);
     const apiObj = {
       bugTitle: bug.bugTitle,
       bugDescription: bug.bugDescription,
@@ -50,6 +49,7 @@ const BugsProvider = ({ children }) => {
       bugLabel: bug.bugLabel,
       open: bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
     };
+
     try {
       const response = await fetch(
         `${SERVER_URL}/api/${project.projectId}/bug`,
@@ -77,6 +77,7 @@ const BugsProvider = ({ children }) => {
       bugLabel: bug.bugLabel,
       open: bug.bugStatus.toLowerCase().trim() === 'open' ? true : false,
     };
+
     try {
       const response = await fetch(
         `${SERVER_URL}/api/${project.projectId}/bug/${bug.bugId}`,
@@ -103,20 +104,16 @@ const BugsProvider = ({ children }) => {
   // delete bug
   const deleteBug = async (id, projectId) => {
     try {
-      const response = await fetch(
-        `${SERVER_URL}/api/${projectId}/bug/${id}/`,
-        {
-          method: 'DELETE',
-        }
-      );
-      console.log('response', response);
+      await fetch(`${SERVER_URL}/api/${projectId}/bug/${id}/`, {
+        method: 'DELETE',
+      });
       setBugs(bugs.filter((bug) => bug.bugId !== id));
     } catch (error) {
       console.log(error);
     }
   };
 
-  // get all bugs
+  // get bugs
   const getBugs = async (projectId) => {
     try {
       const response = await fetch(`${SERVER_URL}/api/${projectId}/bug`);
@@ -132,7 +129,6 @@ const BugsProvider = ({ children }) => {
     try {
       const response = await fetch(`${SERVER_URL}/api/${projectId}/bug/${id}`);
       const data = await response.json();
-      console.log('response', response);
       setBug({
         ...data,
         bugStatus: data.open ? 'open' : 'closed',

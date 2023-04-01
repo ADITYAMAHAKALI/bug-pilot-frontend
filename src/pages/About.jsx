@@ -7,6 +7,7 @@ const About = () => {
       <article className="about-img">
         <img src={aboutImg} alt="about" />
       </article>
+
       <article>
         <div className="title">
           <h2>about us</h2>

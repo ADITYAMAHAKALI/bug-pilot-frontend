@@ -17,6 +17,7 @@ const Dashboard = () => {
   const { setModalStage, projects, getProjects, getProject, deleteProject } =
     useProjectContext();
 
+  // # Functions
   // handle open modal
   const handleOpenModal = (id) => {
     if (id) {
@@ -28,6 +29,7 @@ const Dashboard = () => {
     openModal();
   };
 
+  // # useEffect
   useEffect(() => {
     getProjects();
   }, [projects, user, getProjects]);

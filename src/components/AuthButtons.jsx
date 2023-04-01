@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useGlobalContext, useAuthContext } from '../context';
 
 const AuthButtons = () => {
+  // context
   const { closeSidebar } = useGlobalContext();
   const { user, handleLogout } = useAuthContext();
 

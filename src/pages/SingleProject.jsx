@@ -16,14 +16,19 @@ import {
 const SingleProject = () => {
   const params = useParams();
   const { id: projectId } = params;
+
+  // context
   const { openModal } = useGlobalContext();
   const { getProject, project } = useProjectContext();
   const { setModalStage, bugs, getBugs, bug, getBug, deleteBug } =
     useBugsContext();
+
+  // states
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredBugs, setFilteredBugs] = useState([]);
   const [sortQuery, setSortQuery] = useState('latest');
 
+  // # Functions
   // handle search input
   function handleSearchInput(e) {
     const searchTerm = e.target.value;
@@ -73,6 +78,7 @@ const SingleProject = () => {
     openModal();
   };
 
+  // # useEffects
   useEffect(() => {
     getBugs(projectId);
     setFilteredBugs(bugs);

@@ -14,12 +14,9 @@ const Login = () => {
         <form className="form" onSubmit={handleLogin}>
           <h2>login</h2>
 
-          {
-            // if the form alert is open then we want to show the alert
-            formAlert.isFormAlertOpen && (
-              <FormAlert alertMsg={formAlert.message} />
-            )
-          }
+          {formAlert.isFormAlertOpen && (
+            <FormAlert alertMsg={formAlert.message} />
+          )}
 
           <div className="form-row">
             <label htmlFor="email" className="form-label">
