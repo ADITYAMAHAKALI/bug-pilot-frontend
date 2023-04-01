@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { useGlobalContext } from './context';
+import { SERVER_URL } from '../utils/constants';
 
 const BugsContext = React.createContext();
 
 const BugsProvider = ({ children }) => {
-  const { SERVER_URL } = useGlobalContext();
+  // state
   const [modalStage, setModalStage] = useState('add');
   const [bugs, setBugs] = useState([]);
-
   const [bug, setBug] = useState({
     bugId: null,
     bugTitle: '',

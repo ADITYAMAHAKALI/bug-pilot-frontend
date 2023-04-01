@@ -1,23 +1,16 @@
 import styled from 'styled-components';
 import { FaUserMinus, FaUserPlus } from 'react-icons/fa';
-import { useGlobalContext } from '../context/context';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useGlobalContext, useAuthContext } from '../context';
 
 const AuthButtons = () => {
-  const { user, setUser, closeSidebar } = useGlobalContext();
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem('user');
-    setUser(null);
-    navigate('/');
-    closeSidebar();
-  };
+  const { closeSidebar } = useGlobalContext();
+  const { user, handleLogout } = useAuthContext();
 
   return (
     <Wrapper className="auth-btn-container">
       {user ? (
-        <Link to="/" className="btn" onClick={logout}>
+        <Link to="/" className="btn" onClick={handleLogout}>
           Logout <FaUserMinus />
         </Link>
       ) : (

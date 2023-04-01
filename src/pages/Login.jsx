@@ -1,62 +1,12 @@
-import React, { useState } from 'react';
-import { useGlobalContext } from '../context';
-import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useGlobalContext, useAuthContext } from '../context';
+import { Link } from 'react-router-dom';
 import { FormAlert } from '../components';
 
 const Login = () => {
-  const { setUser, SERVER_URL, openFormAlert, formAlert } = useGlobalContext();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  //\------------------- user Api -------------------//
-  const getUser = async (id) => {
-    try {
-      const response = await fetch(`${SERVER_URL}/api/users/${id}`);
-      const data = await response.json();
-      // console.log('data', data)
-      const new_user = {
-        id: data.userId,
-        email: data.email,
-        username: data.username,
-      };
-      return new_user;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    const loginObj = {
-      email: email,
-      password: password,
-    };
-
-    await fetch(`${SERVER_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginObj),
-    }).then(async (res) => {
-      console.log('res', res);
-      if (res.status === 200) {
-        const data = await res.json();
-        // we will get the user id
-        const new_user = await getUser(data.id);
-        console.log('new_user', new_user);
-        await setUser(new_user);
-        localStorage.setItem('user', JSON.stringify(new_user));
-        navigate('/dashboard');
-      } else {
-        console.log('Login Failed');
-        openFormAlert('Wrong Email or Password');
-      }
-    });
-  };
+  // context
+  const { formAlert } = useGlobalContext();
+  const { formDetails, setFormDetails, handleLogin } = useAuthContext();
 
   return (
     <Wrapper>
@@ -77,14 +27,14 @@ const Login = () => {
             </label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
               name="email"
               id="email"
               className="form-input"
               required
+              value={formDetails.email}
+              onChange={(e) => {
+                setFormDetails({ ...formDetails, email: e.target.value });
+              }}
             />
           </div>
 
@@ -95,13 +45,13 @@ const Login = () => {
             <input
               type="password"
               name="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
               id="password"
               className="form-input"
               required
+              value={formDetails.password}
+              onChange={(e) => {
+                setFormDetails({ ...formDetails, password: e.target.value });
+              }}
             />
           </div>
 

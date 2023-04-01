@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/context';
+import { useGlobalContext, useAuthContext } from '../context';
 import AuthButtons from './AuthButtons';
 
 const Nav = () => {
-  const { openSidebar, user } = useGlobalContext();
+  const { openSidebar } = useGlobalContext();
+  const { user } = useAuthContext();
+
   const navLinks = [
     {
       id: 1,

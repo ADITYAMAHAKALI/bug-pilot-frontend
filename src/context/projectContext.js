@@ -1,13 +1,21 @@
 import React, { useState, useContext } from 'react';
-import { useGlobalContext } from '../context';
+import { useAuthContext } from '../context';
 import { Navigate } from 'react-router-dom';
+import { SERVER_URL } from '../utils/constants';
+
 const ProjectContext = React.createContext();
 
 const ProjectProvider = ({ children }) => {
+  const { user } = useAuthContext();
+
+  // state
   const [modalStage, setModalStage] = useState('add');
   const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState({});
-  const { user, SERVER_URL } = useGlobalContext();
+  const [project, setProject] = useState({
+    projectId: null,
+    projectName: '',
+    projectDescription: '',
+  });
 
   // clear current project
   const clearProject = () => {

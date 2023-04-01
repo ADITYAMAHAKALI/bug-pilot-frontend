@@ -1,13 +1,19 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
-import { useGlobalContext, useProjectContext } from '../context';
 import { ProjectModal } from '../components';
-import { useEffect } from 'react';
+import {
+  useGlobalContext,
+  useAuthContext,
+  useProjectContext,
+} from '../context';
 
 const Dashboard = () => {
-  const { openModal, user } = useGlobalContext();
+  // context
+  const { openModal } = useGlobalContext();
+  const { user } = useAuthContext();
   const { setModalStage, projects, getProjects, getProject, deleteProject } =
     useProjectContext();
 

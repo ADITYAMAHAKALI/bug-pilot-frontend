@@ -15,3 +15,5 @@ export const links = [
     url: '/contact',
   },
 ];
+
+export const SERVER_URL = 'http://localhost:9090';
