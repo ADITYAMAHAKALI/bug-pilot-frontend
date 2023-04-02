@@ -6,8 +6,8 @@ import {
   Register,
   Login,
   Dashboard,
-  SingleProject,
-  SingleBugPage,
+  SingleProjectBugs,
+  SingleBugDetails,
   ProtectedRoute,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
@@ -33,18 +33,18 @@ function App() {
             }
           />
           <Route
-            path="/dashboard/:id"
+            path="/projects/:id"
             element={
               <ProtectedRoute>
-                <SingleProject />
+                <SingleProjectBugs />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/dashboard/:id/bugs/:bugId"
+            path="/projects/:id/bugs/:bugId"
             element={
               <ProtectedRoute>
-                <SingleBugPage />
+                <SingleBugDetails />
               </ProtectedRoute>
             }
           />

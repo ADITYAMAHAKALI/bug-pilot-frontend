@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     useGlobalContext();
 
   // state
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(getLocalStorage('user'));
   const [formDetails, setFormDetails] = useState({
     username: '',
     email: '',

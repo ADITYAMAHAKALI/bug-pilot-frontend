@@ -61,6 +61,7 @@ const Register = () => {
               className="form-input"
               id="password"
               name="password"
+              autoComplete="off"
               value={formDetails.password}
               onChange={(e) => {
                 setFormDetails({ ...formDetails, password: e.target.value });

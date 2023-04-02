@@ -6,6 +6,10 @@ import { useGlobalContext, useAuthContext } from '../context';
 import AuthButtons from './AuthButtons';
 
 const Sidebar = () => {
+  // context
+  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+  const { user } = useAuthContext();
+
   const sidebarLinks = [
     {
       id: 1,
@@ -23,10 +27,6 @@ const Sidebar = () => {
       url: '/contact',
     },
   ];
-
-  // context
-  const { isSidebarOpen, closeSidebar } = useGlobalContext();
-  const { user } = useAuthContext();
 
   return (
     <SidebarContainer>

@@ -6,6 +6,10 @@ import { useGlobalContext, useAuthContext } from '../context';
 import AuthButtons from './AuthButtons';
 
 const Navbar = () => {
+  // context
+  const { openSidebar } = useGlobalContext();
+  const { user } = useAuthContext();
+
   const navLinks = [
     {
       id: 1,
@@ -23,10 +27,6 @@ const Navbar = () => {
       url: '/contact',
     },
   ];
-
-  // context
-  const { openSidebar } = useGlobalContext();
-  const { user } = useAuthContext();
 
   return (
     <NavContainer>

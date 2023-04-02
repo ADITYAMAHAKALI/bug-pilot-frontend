@@ -43,6 +43,7 @@ const Login = () => {
               type="password"
               name="password"
               id="password"
+              autoComplete="off"
               className="form-input"
               required
               value={formDetails.password}

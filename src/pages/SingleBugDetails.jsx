@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { useBugsContext } from '../context';
 import { formatDate } from '../utils/helper';
 import { FaUser } from 'react-icons/fa';
+import { PageTitle } from '../components';
 import {
   IoCheckmarkCircleOutline,
   IoCloseCircleOutline,
 } from 'react-icons/io5';
 
-const SingleBugPage = () => {
+const SingleBugDetails = () => {
   const params = useParams();
   const { id, bugId } = params;
 
@@ -24,12 +25,7 @@ const SingleBugPage = () => {
 
   return (
     <Wrapper>
-      <header className="section">
-        <div className="title">
-          <h1>{bug?.bugTitle}</h1>
-          <div className="title-underline"></div>
-        </div>
-      </header>
+      <PageTitle title={bug?.bugTitle} />
 
       <section className="section">
         <div className="section-center">
@@ -83,16 +79,7 @@ const SingleBugPage = () => {
 };
 
 export const Wrapper = styled.div`
-  header {
-    background: var(--primary-1);
-    text-align: center;
-
-    .title {
-      margin-bottom: 0;
-    }
-  }
-
-  section.section{
+  section.section {
     padding-top:0;
   }
 
@@ -192,4 +179,4 @@ export const Wrapper = styled.div`
   }
 `;
 
-export default SingleBugPage;
+export default SingleBugDetails;
