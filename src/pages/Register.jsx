@@ -1,66 +1,12 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useGlobalContext } from '../context';
-import { useState } from 'react';
+import { useGlobalContext, useAuthContext } from '../context';
 import { FormAlert } from '../components';
 
 const Register = () => {
-  const { user, setUser, SERVER_URL, openFormAlert, formAlert } =
-    useGlobalContext();
-  const navigate = useNavigate();
-  const [formDetails, setFormDetails] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-
-  //\------------------- user Api -------------------//
-  const getUser = async (id) => {
-    try {
-      const response = await fetch(`${SERVER_URL}/api/users/${id}`);
-      const data = await response.json();
-      // console.log('data', data)
-      const new_user = {
-        id: data.userId,
-        email: data.email,
-        username: data.username,
-      };
-      return new_user;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //\ ------------------- Register -------------------//
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const registerObj = {
-      username: formDetails.username,
-      email: formDetails.email,
-      password: formDetails.password,
-    };
-
-    await fetch(`${SERVER_URL}/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(registerObj),
-    }).then(async (res) => {
-      console.log('res', res);
-      if (res.status === 200) {
-        const data = await res.json();
-        const new_user = await getUser(data.id);
-        console.log('new_user', new_user);
-        await setUser(new_user);
-        localStorage.setItem('user', JSON.stringify(new_user));
-        navigate('/dashboard');
-      } else {
-        console.log('Registration Failed');
-        openFormAlert('Username or Email already exists');
-      }
-    });
-  };
+  // context
+  const { formAlert } = useGlobalContext();
+  const { formDetails, setFormDetails, handleRegister } = useAuthContext();
 
   return (
     <Wrapper>
@@ -68,12 +14,9 @@ const Register = () => {
         <form className="form" onSubmit={handleRegister}>
           <h2>Sign Up</h2>
 
-          {
-            // if the form alert is open then we want to show the alert
-            formAlert.isFormAlertOpen && (
-              <FormAlert alertMsg={formAlert.message} />
-            )
-          }
+          {formAlert.isFormAlertOpen && (
+            <FormAlert alertMsg={formAlert.message} />
+          )}
 
           <div className="form-row">
             <label htmlFor="username" className="form-label">
@@ -118,6 +61,7 @@ const Register = () => {
               className="form-input"
               id="password"
               name="password"
+              autoComplete="off"
               value={formDetails.password}
               onChange={(e) => {
                 setFormDetails({ ...formDetails, password: e.target.value });

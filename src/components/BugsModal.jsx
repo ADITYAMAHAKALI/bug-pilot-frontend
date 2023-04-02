@@ -1,22 +1,18 @@
 import { FaTimes } from 'react-icons/fa';
 import { useGlobalContext, useBugsContext } from '../context';
 import styled from 'styled-components';
-import { useProjectContext } from '../context';
-import { useEffect } from 'react';
+
 const BugsModal = ({ project }) => {
+  // context
   const { isModalOpen, closeModal } = useGlobalContext();
   const { handleBugSubmit, bug, setBug, modalStage } = useBugsContext();
 
+  // functions
   const handleSubmit = (e) => {
     e.preventDefault();
     handleBugSubmit(project);
     closeModal();
   };
-  useEffect(() => {
-    if (modalStage === 'edit') {
-      setBug(project);
-    }
-  }, []);
 
   return (
     <Wrapper>
@@ -27,6 +23,7 @@ const BugsModal = ({ project }) => {
       >
         <div className="modal-container">
           <h3>{modalStage} Bug</h3>
+
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <label htmlFor="bugTitle" className="form-label">
@@ -102,8 +99,6 @@ const BugsModal = ({ project }) => {
                 className="form-input"
                 value={bug.bugStatus}
                 onChange={(e) => {
-                  // after doing this it is working
-                  console.log('e.target.value', e.target.value);
                   setBug({ ...bug, bugStatus: e.target.value });
                 }}
               >

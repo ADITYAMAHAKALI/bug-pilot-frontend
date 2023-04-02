@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const SERVER_URL = 'http://localhost:9090';
-  const [user, setUser] = useState(null);
+  // states
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formAlert, setFormAlert] = useState({
@@ -13,16 +11,8 @@ const AppProvider = ({ children }) => {
     message: '',
   });
 
-  // get user if it exists in local storage
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('the user is', user);
-    if (user) {
-      setUser(user);
-    }
-  }, []);
-
   // # Functions
+  // sidebar
   const openSidebar = () => {
     setIsSidebarOpen(true);
   };
@@ -31,6 +21,7 @@ const AppProvider = ({ children }) => {
     setIsSidebarOpen(false);
   };
 
+  // modal
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -39,6 +30,20 @@ const AppProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
+  // local storage
+  const getLocalStorage = (key) => {
+    let value = localStorage.getItem(key);
+    if (value) {
+      return JSON.parse(localStorage.getItem(key));
+    }
+    return null;
+  };
+
+  const setLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  // form alert
   const openFormAlert = (msg) => {
     setFormAlert({ isFormAlertOpen: true, message: msg });
 
@@ -63,9 +68,8 @@ const AppProvider = ({ children }) => {
         formAlert,
         openFormAlert,
         closeFormAlert,
-        user,
-        setUser,
-        SERVER_URL,
+        getLocalStorage,
+        setLocalStorage,
       }}
     >
       {children}

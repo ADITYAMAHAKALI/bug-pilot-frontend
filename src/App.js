@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import {
   Home,
   About,
@@ -6,15 +6,15 @@ import {
   Register,
   Login,
   Dashboard,
-  SingleProject,
-  SingleBugPage,
+  SingleProjectBugs,
+  SingleBugDetails,
   ProtectedRoute,
 } from './pages';
 import { Navbar, Footer, Sidebar } from './components';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Sidebar />
       <main className="page">
@@ -33,18 +33,18 @@ function App() {
             }
           />
           <Route
-            path="/dashboard/:id"
+            path="/projects/:id"
             element={
               <ProtectedRoute>
-                <SingleProject />
+                <SingleProjectBugs />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/dashboard/:id/bugs/:bugId"
+            path="/projects/:id/bugs/:bugId"
             element={
               <ProtectedRoute>
-                <SingleBugPage />
+                <SingleBugDetails />
               </ProtectedRoute>
             }
           />
@@ -52,7 +52,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 

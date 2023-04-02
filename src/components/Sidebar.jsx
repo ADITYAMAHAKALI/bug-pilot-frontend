@@ -2,12 +2,14 @@ import logo from '../assets/logo.png';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
-import { links } from '../utils/constants';
-import { useGlobalContext } from '../context/context';
+import { useGlobalContext, useAuthContext } from '../context';
 import AuthButtons from './AuthButtons';
 
 const Sidebar = () => {
-  const { isSidebarOpen, closeSidebar, user } = useGlobalContext();
+  // context
+  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+  const { user } = useAuthContext();
+
   const sidebarLinks = [
     {
       id: 1,

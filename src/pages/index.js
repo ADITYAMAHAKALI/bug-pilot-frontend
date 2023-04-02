@@ -4,8 +4,8 @@ import Contact from './Contact';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import Register from './Register';
-import SingleProject from './SingleProject';
-import SingleBugPage from './SingleBugPage';
+import SingleProjectBugs from './SingleProjectBugs';
+import SingleBugDetails from './SingleBugDetails';
 import ProtectedRoute from './ProtectedRoute';
 
 export {
@@ -15,7 +15,7 @@ export {
   Dashboard,
   Login,
   Register,
-  SingleProject,
-  SingleBugPage,
+  SingleProjectBugs,
+  SingleBugDetails,
   ProtectedRoute,
 };
